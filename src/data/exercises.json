@@ -1,0 +1,618 @@
+[
+  {
+    "nome": "Flexão de Braço",
+    "grupo_muscular": "Peitoral",
+    "local": "casa",
+    "descricao": "Deite-se de barriga para baixo com as mãos no chão na altura dos ombros, alinhadas com a largura do peito. Mantenha o tronco reto, formando uma linha reta da cabeça aos calcanhares. Flexione os cotovelos, descendo o corpo até o peito quase tocar o chão, e retorne à posição inicial estendendo os braços completamente.",
+    "reabilitacao": false
+  },
+  {
+    "nome": "Supino Reto com Barra",
+    "grupo_muscular": "Peitoral",
+    "local": "academia",
+    "descricao": "Deite-se em um banco plano, segure a barra com as mãos afastadas na largura dos ombros. Retire a barra do suporte, abaixe-a controladamente até tocar o peito e empurre-a para cima até estender completamente os braços, mantendo os pés firmes no chão para estabilidade.",
+    "reabilitacao": false
+  },
+  {
+    "nome": "Cross Over",
+    "grupo_muscular": "Peitoral",
+    "local": "academia",
+    "descricao": "Em uma máquina de crossover, ajuste as polias na posição alta. Segure uma alavanca em cada mão, com os braços semiabertos. Puxe as alavancas em direção ao centro do corpo, cruzando os braços à frente do peito, e retorne lentamente à posição inicial controlando o movimento.",
+    "reabilitacao": "false"
+  },
+  {
+    "nome": "Flexão com Joelhos no Chão",
+    "grupo_muscular": "Peitoral",
+    "local": "casa",
+    "descricao": "Na posição de flexão, apoie os joelhos no chão para reduzir a carga. Coloque as mãos na largura dos ombros, mantenha o tronco alinhado e flexione os cotovelos até o peito se aproximar do chão. Estenda os braços para voltar à posição inicial.",
+    "reabilitacao": true
+  },
+  {
+    "nome": "Adução Isométrica com Parede",
+    "grupo_muscular": "Peitoral",
+    "local": "casa",
+    "descricao": "Fique de frente para uma parede, coloque as mãos na altura do peito com os cotovelos flexionados. Pressione as palmas contra a parede por 10-15 segundos, mantendo a contração do peitoral, sem mover os braços. Relaxe e repita. Ideal para reabilitação de lesões no ombro ou peitoral.",
+    "reabilitacao": true
+  },
+  {
+    "nome": "Supino Inclinado com Halteres",
+    "grupo_muscular": "Peitoral",
+    "local": "academia",
+    "descricao": "Deite-se em um banco inclinado a 30-45°, segurando um haltere em cada mão na altura do peito. Empurre os halteres para cima até estender os braços completamente, mantendo os pulsos retos, e retorne lentamente à posição inicial.",
+    "reabilitacao": false
+  },
+  {
+    "nome": "Flexão com Mãos Afastadas",
+    "grupo_muscular": "Peitoral",
+    "local": "casa",
+    "descricao": "Na posição de flexão, coloque as mãos mais afastadas que a largura dos ombros. Mantenha o tronco reto, flexione os cotovelos até o peito se aproximar do chão e retorne à posição inicial, enfatizando o trabalho no peitoral externo.",
+    "reabilitacao": false
+  },
+  {
+    "nome": "Peck Deck",
+    "grupo_muscular": "Peitoral",
+    "local": "academia",
+    "descricao": "Sente-se na máquina peck deck com os antebraços apoiados nas almofadas. Junte as almofadas à frente do peito, contraindo o peitoral, e retorne lentamente à posição inicial, mantendo o controle durante todo o movimento.",
+    "reabilitacao": false
+  },
+  {
+    "nome": "Remada Curvada com Halteres",
+    "grupo_muscular": "Costas",
+    "local": "academia",
+    "descricao": "Com o tronco inclinado a 45°, segure um haltere em cada mão com os braços estendidos. Puxe os halteres em direção ao abdômen, contraindo as escápulas, e retorne lentamente à posição inicial, mantendo a coluna neutra.",
+    "reabilitacao": false
+  },
+  {
+    "nome": "Superman",
+    "grupo_muscular": "Costas",
+    "local": "casa",
+    "descricao": "Deite-se de bruços com braços e pernas estendidos. Eleve simultaneamente os braços, peito e pernas, mantendo a contração por 2 segundos. Retorne à posição inicial lentamente, evitando relaxar completamente no chão.",
+    "reabilitacao": false
+  },
+  {
+    "nome": "Pull-Up na Barra Fixa",
+    "grupo_muscular": "Costas",
+    "local": "academia",
+    "descricao": "Pendure-se em uma barra fixa com as mãos na largura dos ombros, palmas voltadas para fora. Puxe o corpo até o queixo ultrapassar a barra, contraindo as costas, e desça lentamente até os braços estarem completamente estendidos.",
+    "reabilitacao": false
+  },
+  {
+    "nome": "Remada Unilateral com Garrafa PET",
+    "grupo_muscular": "Costas",
+    "local": "casa",
+    "descricao": "Apoie uma mão e um joelho em um banco ou cadeira, segurando uma garrafa PET cheia em uma mão. Puxe a garrafa em direção ao quadril, contraindo as costas, e retorne lentamente à posição inicial. Alterne os lados.",
+    "reabilitacao": false
+  },
+  {
+    "nome": "Bird Dog",
+    "grupo_muscular": "Costas",
+    "local": "casa",
+    "descricao": "Na posição de quatro apoios, estenda o braço direito e a perna esquerda simultaneamente, mantendo o equilíbrio e a coluna reta. Segure por 2-3 segundos e retorne. Alterne os lados. Ideal para reabilitação de lesões lombares, fortalecendo o core e a lombar.",
+    "reabilitacao": true
+  },
+  {
+    "nome": "Pulldown na Polia",
+    "grupo_muscular": "Costas",
+    "local": "academia",
+    "descricao": "Sente-se na máquina de pulldown, segure a barra com as mãos mais afastadas que a largura dos ombros. Puxe a barra até o peito, contraindo as escápulas, e retorne lentamente à posição inicial, mantendo o tronco reto.",
+    "reabilitacao": false
+  },
+  {
+    "nome": "Extensão Lombar no Banco",
+    "grupo_muscular": "Costas",
+    "local": "academia",
+    "descricao": "Deite-se de bruços em um banco de extensão lombar, com os quadris apoiados e os pés fixos. Eleve o tronco até alinhar com as pernas, contraindo a lombar, e desça lentamente sem relaxar completamente.",
+    "reabilitacao": false
+  },
+  {
+    "nome": "Alongamento de Gato e Vaca",
+    "grupo_muscular": "Costas",
+    "local": "casa",
+    "descricao": "Na posição de quatro apoios, alterne entre arquear as costas para cima (gato), contraindo o abdômen, e abaixar o meio das costas em direção ao chão (vaca), levantando a cabeça. Repita lentamente. Ideal para reabilitação de dores lombares.",
+    "reabilitacao": true
+  },
+  {
+    "nome": "Elevação Lateral com Halteres",
+    "grupo_muscular": "Ombros",
+    "local": "academia",
+    "descricao": "Em pé, segure um haltere em cada mão com os braços ao lado do corpo. Eleve os braços lateralmente até a altura dos ombros, mantendo os cotovelos levemente flexionados, e retorne lentamente à posição inicial.",
+    "reabilitacao": false
+  },
+  {
+    "nome": "Flexão Pike",
+    "grupo_muscular": "Ombros",
+    "local": "casa",
+    "descricao": "Na posição de V invertido (pike), com as mãos e pés no chão, flexione os cotovelos para levar a cabeça em direção ao solo. Estenda os braços para retornar à posição inicial, mantendo o quadril elevado.",
+    "reabilitacao": false
+  },
+  {
+    "nome": "Desenvolvimento com Barra",
+    "grupo_muscular": "Ombros",
+    "local": "academia",
+    "descricao": "Sentado em um banco, segure a barra com as mãos na largura dos ombros. Eleve a barra acima da cabeça até estender completamente os braços e retorne lentamente até a altura do queixo, mantendo o tronco reto.",
+    "reabilitacao": false
+  },
+  {
+    "nome": "Rotação Externa com Faixa Elástica",
+    "grupo_muscular": "Ombros",
+    "local": "casa",
+    "descricao": "Segure uma faixa elástica com uma mão, mantendo o cotovelo dobrado a 90° e próximo ao corpo. Puxe a faixa para fora, rotacionando o ombro externamente, e retorne lentamente. Ideal para reabilitação de lesões no manguito rotador.",
+    "reabilitacao": true
+  },
+  {
+    "nome": "Rotação Interna com Faixa Elástica",
+    "grupo_muscular": "Ombros",
+    "local": "casa",
+    "descricao": "Fixe uma faixa elástica em uma superfície estável. Segure a faixa com uma mão, cotovelo dobrado a 90° e próximo ao corpo. Puxe a faixa em direção ao corpo, rotacionando o ombro internamente, e retorne lentamente. Ideal para reabilitação de lesões no ombro.",
+    "reabilitacao": true
+  },
+  {
+    "nome": "Elevação Frontal com Halteres",
+    "grupo_muscular": "Ombros",
+    "local": "academia",
+    "descricao": "Em pé, segure um haltere em cada mão com os braços ao lado do corpo. Eleve os halteres à frente até a altura dos ombros, mantendo os braços retos, e retorne lentamente à posição inicial.",
+    "reabilitacao": false
+  },
+  {
+    "nome": "Face Pull na Polia",
+    "grupo_muscular": "Ombros",
+    "local": "academia",
+    "descricao": "Na máquina de cabo, ajuste a polia na altura do rosto e use uma corda. Puxe a corda em direção ao rosto, com os cotovelos abertos, contraindo os deltoides posteriores, e retorne lentamente à posição inicial.",
+    "reabilitacao": false
+  },
+  {
+    "nome": "Y Raise com Garrafas PET",
+    "grupo_muscular": "Ombros",
+    "local": "casa",
+    "descricao": "Deite-se de bruços em um banco ou no chão, segurando uma garrafa PET cheia em cada mão. Eleve os braços em um ângulo de 45° (formando um Y), mantendo-os retos, e retorne lentamente. Ideal para fortalecer os ombros e trapézio.",
+    "reabilitacao": false
+  },
+  {
+    "nome": "Rosca Direta com Barra",
+    "grupo_muscular": "Bíceps",
+    "local": "academia",
+    "descricao": "Em pé, segure a barra com as mãos na largura dos ombros, palmas voltadas para cima. Flexione os cotovelos, elevando a barra até a altura do ombro, e retorne lentamente, mantendo os cotovelos fixos ao corpo.",
+    "reabilitacao": false
+  },
+  {
+    "nome": "Rosca Alternada com Garrafas PET",
+    "grupo_muscular": "Bíceps",
+    "local": "casa",
+    "descricao": "Segure uma garrafa PET cheia em cada mão, com os braços ao lado do corpo. Flexione um cotovelo de cada vez, elevando a garrafa até a altura do ombro, e retorne lentamente. Alterne os braços.",
+    "reabilitacao": false
+  },
+  {
+    "nome": "Rosca Martelo com Halteres",
+    "grupo_muscular": "Bíceps",
+    "local": "academia",
+    "descricao": "Segure um haltere em cada mão com as palmas voltadas para dentro (pegada neutra). Flexione os cotovelos, elevando os halteres até a altura dos ombros, e retorne lentamente, mantendo os cotovelos fixos ao corpo.",
+    "reabilitacao": false
+  },
+  {
+    "nome": "Rosca Concentrada",
+    "grupo_muscular": "Bíceps",
+    "local": "academia",
+    "descricao": "Sentado em um banco, apoie o cotovelo interno da coxa, segurando um haltere. Flexione o cotovelo, elevando o haltere em direção ao ombro, e retorne lentamente à posição inicial.",
+    "reabilitacao": false
+  },
+  {
+    "nome": "Rosca Isométrica com Toalha",
+    "grupo_muscular": "Bíceps",
+    "local": "casa",
+    "descricao": "Segure uma toalha com as duas mãos, com os cotovelos dobrados a 90°. Pise na toalha para criar resistência e mantenha a contração dos bíceps por 10-15 segundos. Relaxe e repita. Ideal para reabilitação de lesões no cotovelo.",
+    "reabilitacao": true
+  },
+  {
+    "nome": "Rosca na Polia Baixa",
+    "grupo_muscular": "Bíceps",
+    "local": "academia",
+    "descricao": "Na máquina de cabo, segure a barra reta na polia baixa com as mãos na largura dos ombros. Flexione os cotovelos, puxando a barra até a altura do peito, e retorne lentamente, mantendo a tensão nos bíceps.",
+    "reabilitacao": false
+  },
+  {
+    "nome": "Rosca com Faixa Elástica",
+    "grupo_muscular": "Bíceps",
+    "local": "casa",
+    "descricao": "Pise em uma faixa elástica e segure suas extremidades com as mãos, palmas voltadas para cima. Flexione os cotovelos, puxando a faixa até a altura dos ombros, e retorne lentamente à posição inicial.",
+    "reabilitacao": false
+  },
+  {
+    "nome": "Rosca Isométrica com Parede",
+    "grupo_muscular": "Bíceps",
+    "local": "casa",
+    "descricao": "Fique de frente para uma parede, com os braços semiflexionados e as palmas pressionando a parede. Mantenha a contração dos bíceps por 10-15 segundos, sem mover os braços. Relaxe e repita. Ideal para reabilitação de lesões no cotovelo.",
+    "reabilitacao": true
+  },
+  {
+    "nome": "Tríceps Testa com Halteres",
+    "grupo_muscular": "Tríceps",
+    "local": "academia",
+    "descricao": "Deitado em um banco, segure um haltere em cada mão acima da cabeça, com os braços estendidos. Flexione os cotovelos, levando os halteres até próximo da testa, e estenda os braços para retornar à posição inicial.",
+    "reabilitacao": false
+  },
+  {
+    "nome": "Tríceps no Banco",
+    "grupo_muscular": "Tríceps",
+    "local": "casa",
+    "descricao": "Com as mãos apoiadas em um banco ou cadeira e os pés estendidos à frente, flexione os cotovelos até formar um ângulo de 90°. Empurre com os braços para retornar à posição inicial, mantendo o tronco reto.",
+    "reabilitacao": false
+  },
+  {
+    "nome": "Extensão de Tríceps com Cabo",
+    "grupo_muscular": "Tríceps",
+    "local": "academia",
+    "descricao": "Na máquina de cabo, segure a barra com as mãos juntas, cotovelos dobrados. Estenda os braços para baixo, contraindo o tríceps, e retorne lentamente à posição inicial, mantendo os cotovelos fixos ao corpo.",
+    "reabilitacao": false
+  },
+  {
+    "nome": "Flexão Diamante",
+    "grupo_muscular": "Tríceps",
+    "local": "casa",
+    "descricao": "Na posição de flexão, junte as mãos formando um diamante com os polegares e indicadores. Flexione os cotovelos, descendo o corpo, e retorne à posição inicial, mantendo o tronco alinhado.",
+    "reabilitacao": false
+  },
+  {
+    "nome": "Extensão Isométrica de Tríceps com Parede",
+    "grupo_muscular": "Tríceps",
+    "local": "casa",
+    "descricao": "De costas para uma parede, apoie as mãos na parede com os cotovelos flexionados. Pressione as mãos contra a parede por 10-15 segundos, contraindo o tríceps, sem mover os braços. Relaxe e repita. Ideal para reabilitação de lesões no cotovelo.",
+    "reabilitacao": true
+  },
+  {
+    "nome": "Tríceps Francês com Haltere",
+    "grupo_muscular": "Tríceps",
+    "local": "academia",
+    "descricao": "Sentado ou em pé, segure um haltere com ambas as mãos acima da cabeça, braços estendidos. Flexione os cotovelos, baixando o haltere atrás da cabeça, e estenda os braços para retornar à posição inicial.",
+    "reabilitacao": false
+  },
+  {
+    "nome": "Kickback com Halteres",
+    "grupo_muscular": "Tríceps",
+    "local": "academia",
+    "descricao": "Com o tronco inclinado a 45°, segure um haltere em cada mão, cotovelos dobrados a 90°. Estenda os braços para trás, contraindo o tríceps, e retorne lentamente à posição inicial, mantendo os cotovelos fixos.",
+    "reabilitacao": false
+  },
+  {
+    "nome": "Extensão de Tríceps com Faixa Elástica",
+    "grupo_muscular": "Tríceps",
+    "local": "casa",
+    "descricao": "Fixe uma faixa elástica acima da cabeça. Segure a faixa com ambas as mãos, cotovelos dobrados atrás da cabeça. Estenda os braços para cima, contraindo o tríceps, e retorne lentamente à posição inicial.",
+    "reabilitacao": false
+  },
+  {
+    "nome": "Prancha Isométrica",
+    "grupo_muscular": "Core",
+    "local": "casa",
+    "descricao": "Apoie os antebraços e as pontas dos pés no chão, mantendo o corpo reto e alinhado. Contraia o abdômen e segure a posição por 30 segundos ou mais, sem deixar o quadril cair ou subir.",
+    "reabilitacao": false
+  },
+  {
+    "nome": "Elevação de Pernas",
+    "grupo_muscular": "Core",
+    "local": "casa",
+    "descricao": "Deite-se de costas com as pernas estendidas e os braços ao lado do corpo. Eleve ambas as pernas até formar um ângulo de 90° com o corpo, mantendo-as retas, e desça lentamente sem tocar o chão.",
+    "reabilitacao": false
+  },
+  {
+    "nome": "Abdominal Crunch na Máquina",
+    "grupo_muscular": "Core",
+    "local": "academia",
+    "descricao": "Sente-se na máquina de abdominal, ajuste o peso e apoie as costas no encosto. Contraia o abdômen, flexionando o tronco para frente, e retorne lentamente à posição inicial, controlando o movimento.",
+    "reabilitacao": false
+  },
+  {
+    "nome": "Abdominal Oblíquo com Rotação",
+    "grupo_muscular": "Core",
+    "local": "casa",
+    "descricao": "Deite-se de costas com os joelhos dobrados e os pés no chão. Eleve o tronco, girando para tocar o cotovelo direito no joelho esquerdo, e alterne os lados em um movimento contínuo.",
+    "reabilitacao": false
+  },
+  {
+    "nome": "Ponte com Bola Suíça",
+    "grupo_muscular": "Core",
+    "local": "casa",
+    "descricao": "Deite-se de costas com os calcanhares sobre uma bola suíça, pernas estendidas. Eleve o quadril até formar uma linha reta dos ombros aos calcanhares, segure por 2 segundos e desça lentamente. Ideal para reabilitação lombar.",
+    "reabilitacao": true
+  },
+  {
+    "nome": "Russian Twist",
+    "grupo_muscular": "Core",
+    "local": "casa",
+    "descricao": "Sentado no chão com os joelhos dobrados, incline o tronco ligeiramente para trás. Gire o tronco de um lado para o outro, tocando as mãos no chão em cada lado, mantendo o abdômen contraído.",
+    "reabilitacao": false
+  },
+  {
+    "nome": "Abdominal Infra",
+    "grupo_muscular": "Core",
+    "local": "casa",
+    "descricao": "Deite-se de costas com as mãos sob os glúteos. Eleve as pernas juntas até 30-45°, mantendo-as retas, e desça lentamente sem tocar o chão, mantendo o abdômen contraído.",
+    "reabilitacao": false
+  },
+  {
+    "nome": "Dead Bug",
+    "grupo_muscular": "Core",
+    "local": "casa",
+    "descricao": "Deite-se de costas com os braços estendidos para o teto e os joelhos dobrados a 90°. Estenda o braço direito e a perna esquerda simultaneamente, mantendo a lombar no chão, e retorne. Alterne os lados. Ideal para reabilitação lombar.",
+    "reabilitacao": true
+  },
+  {
+    "nome": "Rotações de Tornozelo",
+    "grupo_muscular": "Tornozelo",
+    "local": "casa",
+    "descricao": "Sentado em uma cadeira, eleve um pé do chão e realize círculos com o tornozelo, 10 vezes no sentido horário e 10 no anti-horário. Troque de lado. Ideal para reabilitação de entorses de tornozelo.",
+    "reabilitacao": true
+  },
+  {
+    "nome": "Elevação Plantar com Peso Corporal",
+    "grupo_muscular": "Tornozelo",
+    "local": "casa",
+    "descricao": "Em pé, apoie-se na ponta dos pés, elevando os calcanhares o máximo possível. Desça lentamente até os calcanhares tocarem o chão. Repita o movimento, mantendo o equilíbrio.",
+    "reabilitacao": false
+  },
+  {
+    "nome": "Flexão Plantar na Máquina",
+    "grupo_muscular": "Tornozelo",
+    "local": "academia",
+    "descricao": "Sente-se na máquina de flexão plantar com os pés na plataforma, joelhos levemente flexionados. Empurre a plataforma com a ponta dos pés, contraindo a panturrilha, e retorne lentamente à posição inicial.",
+    "reabilitacao": false
+  },
+  {
+    "nome": "Inversão e Eversão com Faixa Elástica",
+    "grupo_muscular": "Tornozelo",
+    "local": "casa",
+    "descricao": "Sentado, fixe uma faixa elástica ao redor do pé. Puxe o pé para dentro (inversão) e para fora (eversão) contra a resistência da faixa, mantendo o movimento controlado. Ideal para reabilitação de entorses de tornozelo.",
+    "reabilitacao": true
+  },
+  {
+    "nome": "Flexão Plantar com Halteres",
+    "grupo_muscular": "Tornozelo",
+    "local": "academia",
+    "descricao": "Em pé, segure um haltere em cada mão e apoie-se na ponta dos pés, elevando os calcanhares. Desça lentamente até os calcanhares tocarem o chão, mantendo o equilíbrio e a coluna reta.",
+    "reabilitacao": false
+  },
+  {
+    "nome": "Equilíbrio em Uma Perna",
+    "grupo_muscular": "Tornozelo",
+    "local": "casa",
+    "descricao": "Fique em pé sobre uma perna, mantendo o joelho levemente flexionado. Segure a posição por 20-30 segundos, mantendo o equilíbrio. Troque de lado. Ideal para fortalecer os estabilizadores do tornozelo.",
+    "reabilitacao": false
+  },
+  {
+    "nome": "Flexão Plantar Sentado com Faixa",
+    "grupo_muscular": "Tornozelo",
+    "local": "casa",
+    "descricao": "Sentado, passe uma faixa elástica ao redor da planta do pé, segurando as extremidades. Empurre o pé para frente contra a resistência da faixa, contraindo a panturrilha, e retorne lentamente.",
+    "reabilitacao": false
+  },
+  {
+    "nome": "Escrita do Alfabeto com o Pé",
+    "grupo_muscular": "Tornozelo",
+    "local": "casa",
+    "descricao": "Sentado, eleve um pé e use o tornozelo para 'escrever' o alfabeto no ar, movendo o pé em todas as direções. Repita com o outro pé. Ideal para reabilitação de entorses, melhorando a mobilidade.",
+    "reabilitacao": true
+  },
+  {
+    "nome": "Cadeira Flexora",
+    "grupo_muscular": "Posterior de Coxa",
+    "local": "academia",
+    "descricao": "Sente-se na cadeira flexora, ajuste o apoio para os tornozelos. Flexione os joelhos, levando os calcanhares em direção aos glúteos, e retorne lentamente à posição inicial, mantendo as costas apoiadas.",
+    "reabilitacao": false
+  },
+  {
+    "nome": "Stiff com Halteres",
+    "grupo_muscular": "Posterior de Coxa",
+    "local": "academia",
+    "descricao": "Em pé, segure um haltere em cada mão, com os joelhos levemente flexionados. Incline o tronco para frente, mantendo a coluna reta, até sentir o alongamento na parte posterior da coxa. Retorne à posição inicial, contraindo os glúteos.",
+    "reabilitacao": false
+  },
+  {
+    "nome": "Elevação Pélvica",
+    "grupo_muscular": "Posterior de Coxa",
+    "local": "casa",
+    "descricao": "Deite-se de costas com os joelhos dobrados e os pés apoiados no chão, na largura dos ombros. Eleve o quadril até formar uma linha reta dos ombros aos joelhos, contraindo os glúteos, e desça lentamente.",
+    "reabilitacao": false
+  },
+  {
+    "nome": "Alongamento de Posterior com Faixa",
+    "grupo_muscular": "Posterior de Coxa",
+    "local": "casa",
+    "descricao": "Deitado de costas, passe uma faixa elástica sob a planta do pé de uma perna estendida. Puxe a faixa, elevando a perna em direção ao corpo, mantendo o joelho reto. Segure por 30 segundos e troque de lado. Ideal para reabilitação de lesões no posterior da coxa.",
+    "reabilitacao": true
+  },
+  {
+    "nome": "Flexão Nórdica",
+    "grupo_muscular": "Posterior de Coxa",
+    "local": "casa",
+    "descricao": "Ajoelhe-se com os pés fixos (por um parceiro ou sob um móvel). Incline o tronco para frente lentamente, controlando o movimento com os isquiotibiais, até quase tocar o chão. Use as mãos para apoiar, se necessário, e retorne. Ideal para reabilitação de lesões no posterior da coxa.",
+    "reabilitacao": true
+  },
+  {
+    "nome": "Good Morning com Barra",
+    "grupo_muscular": "Posterior de Coxa",
+    "local": "academia",
+    "descricao": "Em pé, coloque uma barra sobre os ombros, mantendo os joelhos levemente flexionados. Incline o tronco para frente, mantendo a coluna reta, até sentir o alongamento no posterior da coxa, e retorne à posição inicial.",
+    "reabilitacao": false
+  },
+  {
+    "nome": "Elevação Pélvica Unilateral",
+    "grupo_muscular": "Posterior de Coxa",
+    "local": "casa",
+    "descricao": "Deite-se de costas com um joelho dobrado e o outro estendido. Eleve o quadril, apoiando-se apenas no pé da perna dobrada, até alinhar ombros, quadril e joelho. Desça lentamente e alterne as pernas.",
+    "reabilitacao": false
+  },
+  {
+    "nome": "Curl Nórdico com Bola Suíça",
+    "grupo_muscular": "Posterior de Coxa",
+    "local": "casa",
+    "descricao": "Ajoelhe-se com os calcanhares sob uma bola suíça. Incline o tronco para frente lentamente, controlando o movimento com os isquiotibiais, e retorne à posição inicial usando o core e os braços, se necessário.",
+    "reabilitacao": false
+  },
+  {
+    "nome": "Agachamento Livre",
+    "grupo_muscular": "Quadríceps",
+    "local": "casa",
+    "descricao": "Fique em pé com os pés na largura dos ombros, dedos levemente voltados para fora. Agache empurrando o quadril para trás, mantendo os joelhos alinhados com os pés e a coluna reta. Desça até os quadris estarem alinhados com os joelhos e retorne à posição inicial.",
+    "reabilitacao": false
+  },
+  {
+    "nome": "Cadeira Extensora",
+    "grupo_muscular": "Quadríceps",
+    "local": "academia",
+    "descricao": "Sente-se na máquina com os joelhos alinhados ao eixo do aparelho. Estenda as pernas até quase travar os joelhos, contraindo o quadríceps, e retorne lentamente à posição inicial, controlando o movimento.",
+    "reabilitacao": false
+  },
+  {
+    "nome": "Leg Press 45°",
+    "grupo_muscular": "Quadríceps",
+    "local": "academia",
+    "descricao": "Sente-se no leg press com os pés na plataforma, na largura dos ombros. Estenda as pernas sem travar os joelhos, empurrando a plataforma, e retorne lentamente até os joelhos formarem um ângulo de 90°. Mantenha as costas apoiadas no encosto.",
+    "reabilitacao": false
+  },
+  {
+    "nome": "Passada com Peso Corporal",
+    "grupo_muscular": "Quadríceps",
+    "local": "casa",
+    "descricao": "Dê um passo à frente, flexionando o joelho da frente até formar um ângulo de 90°, mantendo o tronco reto e o joelho de trás próximo ao chão. Volte à posição inicial e alterne as pernas, caminhando lentamente.",
+    "reabilitacao": false
+  },
+  {
+    "nome": "Agachamento Sumô",
+    "grupo_muscular": "Quadríceps",
+    "local": "casa",
+    "descricao": "Fique em pé com os pés mais afastados que a largura dos ombros, dedos apontando para fora. Agache empurrando o quadril para trás, mantendo os joelhos alinhados com os pés, e retorne à posição inicial, contraindo os glúteos.",
+    "reabilitacao": false
+  },
+  {
+    "nome": "Afundo com Halteres",
+    "grupo_muscular": "Quadríceps",
+    "local": "academia",
+    "descricao": "Segure um haltere em cada mão, com os braços ao lado do corpo. Dê um passo à frente, flexione os joelhos até a coxa da frente estar paralela ao chão, mantendo o tronco reto. Retorne à posição inicial e alterne as pernas.",
+    "reabilitacao": false
+  },
+  {
+    "nome": "Extensão de Joelho Sentado",
+    "grupo_muscular": "Quadríceps",
+    "local": "casa",
+    "descricao": "Sentado em uma cadeira, estenda uma perna à frente, mantendo o joelho reto, e segure por 5 segundos, contraindo o quadríceps. Retorne lentamente à posição inicial e alterne as pernas. Ideal para reabilitação de lesões no joelho.",
+    "reabilitacao": true
+  },
+  {
+    "nome": "Mini Agachamento",
+    "grupo_muscular": "Quadríceps",
+    "local": "casa",
+    "descricao": "Em pé, com os pés na largura dos ombros, realize um agachamento parcial, descendo apenas até a metade do movimento completo, mantendo a coluna reta. Retorne à posição inicial. Ideal para reabilitação de lesões no joelho, com baixa amplitude.",
+    "reabilitacao": true
+  },
+  {
+    "nome": "Elevação Pélvica",
+    "grupo_muscular": "Glúteos",
+    "local": "casa",
+    "descricao": "Deite-se de costas com os joelhos dobrados e os pés apoiados no chão, na largura dos ombros. Eleve o quadril até formar uma linha reta dos ombros aos joelhos, contraindo os glúteos, e desça lentamente.",
+    "reabilitacao": false
+  },
+  {
+    "nome": "Agachamento Sumô com Halteres",
+    "grupo_muscular": "Glúteos",
+    "local": "academia",
+    "descricao": "Segure um haltere com ambas as mãos à frente do corpo, com os pés mais afastados que a largura dos ombros, dedos apontando para fora. Agache empurrando o quadril para trás, mantendo a coluna reta, e retorne à posição inicial, contraindo os glúteos.",
+    "reabilitacao": false
+  },
+  {
+    "nome": "Elevação Pélvica Unilateral",
+    "grupo_muscular": "Glúteos",
+    "local": "casa",
+    "descricao": "Deite-se de costas com um joelho dobrado e o outro estendido. Eleve o quadril, apoiando-se apenas no pé da perna dobrada, até alinhar ombros, quadril e joelho. Desça lentamente e alterne as pernas.",
+    "reabilitacao": false
+  },
+  {
+    "nome": "Hip Thrust com Barra",
+    "grupo_muscular": "Glúteos",
+    "local": "academia",
+    "descricao": "Sente-se no chão com as costas apoiadas em um banco, uma barra sobre os quadris. Flexione os joelhos, pés na largura dos ombros. Eleve o quadril até alinhar com o tronco, contraindo os glúteos, e desça lentamente.",
+    "reabilitacao": false
+  },
+  {
+    "nome": "Afundo Lateral",
+    "grupo_muscular": "Glúteos",
+    "local": "casa",
+    "descricao": "Em pé, dê um passo largo para o lado, flexionando o joelho da perna que se moveu e mantendo a outra perna esticada. Empurre o quadril para trás e retorne à posição inicial, alternando os lados.",
+    "reabilitacao": false
+  },
+  {
+    "nome": "Chute de Glúteos com Faixa",
+    "grupo_muscular": "Glúteos",
+    "local": "casa",
+    "descricao": "Com uma faixa elástica ao redor dos tornozelos, fique em posição de quatro apoios. Estenda uma perna para trás, levantando o pé em direção ao teto, contraindo o glúteo, e retorne lentamente. Alterne as pernas.",
+    "reabilitacao": false
+  },
+  {
+    "nome": "Clamshell com Faixa",
+    "grupo_muscular": "Glúteos",
+    "local": "casa",
+    "descricao": "Deite-se de lado com os joelhos dobrados e uma faixa elástica ao redor das coxas. Mantendo os pés juntos, eleve o joelho superior contra a resistência da faixa, contraindo o glúteo, e retorne lentamente. Ideal para reabilitação de lesões no quadril.",
+    "reabilitacao": true
+  },
+  {
+    "nome": "Abdução de Quadril Deitado",
+    "grupo_muscular": "Glúteos",
+    "local": "casa",
+    "descricao": "Deite-se de lado com as pernas estendidas. Eleve a perna superior o mais alto possível, mantendo-a reta, e desça lentamente sem tocar a outra perna. Alterne os lados. Ideal para reabilitação de lesões no quadril.",
+    "reabilitacao": true
+  },
+  {
+    "nome": "Elevação de Perna Estendida",
+    "grupo_muscular": "Joelho",
+    "local": "casa",
+    "descricao": "Deite-se de costas com uma perna dobrada e a outra estendida. Eleve a perna estendida até 45°, mantendo o joelho reto, e desça lentamente sem tocar o chão. Alterne as pernas. Ideal para reabilitação de lesões no joelho.",
+    "reabilitacao": true
+  },
+  {
+    "nome": "Contração Isométrica de Quadríceps",
+    "grupo_muscular": "Joelho",
+    "local": "casa",
+    "descricao": "Sentado em uma cadeira, estenda uma perna à frente, mantendo o joelho reto. Contraia o quadríceps por 10-15 segundos, sem mover a perna, e relaxe. Alterne as pernas. Ideal para reabilitação de lesões no joelho.",
+    "reabilitacao": true
+  },
+  {
+    "nome": "Mini Agachamento",
+    "grupo_muscular": "Joelho",
+    "local": "casa",
+    "descricao": "Em pé, com os pés na largura dos ombros, realize um agachamento parcial, descendo apenas até a metade do movimento completo, mantendo a coluna reta. Retorne à posição inicial. Ideal para reabilitação de lesões no joelho, com baixa amplitude.",
+    "reabilitacao": true
+  },
+  {
+    "nome": "Step-Up com Apoio",
+    "grupo_muscular": "Joelho",
+    "local": "casa",
+    "descricao": "Use um degrau baixo ou banco. Suba com uma perna, mantendo o joelho alinhado com o pé, e desça lentamente. Alterne as pernas. Ideal para reabilitação de lesões no joelho, fortalecendo os estabilizadores.",
+    "reabilitacao": true
+  },
+  {
+    "nome": "Extensão de Joelho com Faixa",
+    "grupo_muscular": "Joelho",
+    "local": "casa",
+    "descricao": "Sentado, fixe uma faixa elástica ao redor do tornozelo e em uma superfície estável à frente. Estenda a perna contra a resistência da faixa, mantendo o movimento controlado, e retorne lentamente. Ideal para reabilitação de lesões no joelho.",
+    "reabilitacao": true
+  },
+  {
+    "nome": "Agachamento na Parede",
+    "grupo_muscular": "Joelho",
+    "local": "casa",
+    "descricao": "Encoste as costas em uma parede, com os pés afastados cerca de 60 cm da parede. Desça até os joelhos formarem um ângulo de 90°, segure por 10-20 segundos e retorne. Ideal para reabilitação de lesões no joelho.",
+    "reabilitacao": true
+  },
+  {
+    "nome": "Passada Controlada",
+    "grupo_muscular": "Joelho",
+    "local": "casa",
+    "descricao": "Dê um pequeno passo à frente, flexionando o joelho da frente até um ângulo confortável, mantendo o tronco reto. Retorne à posição inicial e alterne as pernas. Ideal para reabilitação de lesões no joelho, com movimento controlado.",
+    "reabilitacao": true
+  },
+  {
+    "nome": "Cadeira Extensora com Carga Leve",
+    "grupo_muscular": "Joelho",
+    "local": "academia",
+    "descricao": "Sente-se na máquina de cadeira extensora com carga leve, joelhos alinhados ao eixo. Estenda as pernas lentamente, sem travar os joelhos, e retorne controladamente. Ideal para reabilitação de lesões no joelho.",
+    "reabilitacao": true
+  }
+]
