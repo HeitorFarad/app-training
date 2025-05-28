@@ -2,6 +2,7 @@ import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
+import EditarTreinoScreen from './src/screens/EditarTreinoScreen';
 import TreinosSalvosScreen from './src/screens/TreinosSalvosScreen';
 import AdicionarExercicioScreen from './src/screens/AdicionarExercicioScreen';
 import HomeScreen from './src/screens/HomeScreen';
@@ -10,11 +11,9 @@ import RegisterScreen from './src/screens/RegisterScreen';
 import AnamneseScreen from './src/screens/AnamneseScreen';
 import MainMenuScreen from './src/screens/MainMenuScreen';
 import ProgressScreen from './src/screens/ProgressScreen';
-import TrainingListScreen from './src/screens/TrainingListScreen';
 import TrainingEditorScreen from './src/screens/TrainingEditorScreen';
 import CreateTrainingScreen from './src/screens/CreateTrainingScreen';
 import NutritionTipsScreen from './src/screens/NutritionTipsScreen';
-import FavoriteTrainingScreen from './src/screens/FavoriteTrainingScreen';
 
 import { UserProvider } from './src/context/UserContext';
 
@@ -31,13 +30,12 @@ export default function App() {
           <Stack.Screen name="Anamnese" component={AnamneseScreen} />
           <Stack.Screen name="MainMenu" component={MainMenuScreen} />
           <Stack.Screen name="Progress" component={ProgressScreen} />
-          <Stack.Screen name="TrainingList" component={TrainingListScreen} />
           <Stack.Screen name="TrainingEditor" component={TrainingEditorScreen} />
           <Stack.Screen name="CreateTraining" component={CreateTrainingScreen} />
           <Stack.Screen name="NutritionTips" component={NutritionTipsScreen} />
-          <Stack.Screen name="FavoriteTraining" component={FavoriteTrainingScreen} />
           <Stack.Screen name="AdicionarExercicio" component={AdicionarExercicioScreen} />
           <Stack.Screen name="TreinosSalvos" component={TreinosSalvosScreen} />
+          <Stack.Screen name="EditarTreino" component={EditarTreinoScreen} />
         </Stack.Navigator>
       </NavigationContainer>
     </UserProvider>

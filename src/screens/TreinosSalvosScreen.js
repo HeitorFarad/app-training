@@ -91,6 +91,15 @@ export default function TreinosSalvosScreen() {
           <TouchableOpacity onPress={fecharModal}>
             <Text style={styles.fechar}>← Voltar</Text>
           </TouchableOpacity>
+          <TouchableOpacity onPress={() => {
+            fecharModal();
+            navigation.navigate('EditarTreino', {
+              treinoIndex: treinos.indexOf(treinoSelecionado),
+              treinoOriginal: treinoSelecionado
+            });
+          }}>
+            <Text style={styles.editar}>✏️ Editar Treino</Text>
+          </TouchableOpacity>
         </ScrollView>
       </Modal>
     </View>
@@ -170,5 +179,12 @@ const styles = StyleSheet.create({
   textDecorationLine: 'underline',
   textAlign: 'start',
   margin: 10,
+  },
+  editar: {
+  marginTop: 12,
+  fontSize: 16,
+  color: '#4caf50',
+  textAlign: 'center',
+  textDecorationLine: 'underline'
   }
 });

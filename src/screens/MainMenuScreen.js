@@ -32,24 +32,12 @@ export default function MainMenuScreen({ navigation }) {
         <Text style={styles.buttonText}>Criar Treino</Text>
       </TouchableOpacity>
 
-
       <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('Progress')}>
         <Text style={styles.buttonText}>Ver Progresso</Text>
       </TouchableOpacity>
 
-      <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('TrainingList')}>
-        <Text style={styles.buttonText}>Ver Treinos</Text>
-      </TouchableOpacity>
-
       <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('NutritionTips')}>
         <Text style={styles.buttonText}>Ver Dicas de Alimentação</Text>
-      </TouchableOpacity>
-
-      <TouchableOpacity
-        style={styles.button}
-        onPress={() => navigation.navigate('FavoriteTraining')}
-      >
-        <Text style={styles.buttonText}>Treino Favorito</Text>
       </TouchableOpacity>
 
       <TouchableOpacity
