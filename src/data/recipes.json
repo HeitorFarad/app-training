@@ -1,0 +1,290 @@
+[
+  {
+    "nome": "Salada de Quinoa com Frango Grelhado",
+    "categoria": "Gerais",
+    "ingredientes": [
+      "1 xícara de quinoa cozida",
+      "150g de peito de frango grelhado",
+      "1/2 abacate em cubos",
+      "1 xícara de rúcula",
+      "1/2 xícara de tomate cereja cortado ao meio",
+      "1 colher de sopa de azeite de oliva",
+      "Suco de 1/2 limão",
+      "Sal e pimenta a gosto"
+    ],
+    "preparo": [
+      "Cozinhe a quinoa em água com uma pitada de sal por cerca de 15 minutos, até ficar macia. Escorra e reserve.",
+      "Tempere o peito de frango com sal e pimenta, grelhe em uma frigideira antiaderente por 5-6 minutos de cada lado, até dourar. Corte em tiras.",
+      "Em uma tigela, misture a quinoa cozida, rúcula, tomate cereja e abacate.",
+      "Adicione o frango grelhado por cima.",
+      "Regue com azeite de oliva e suco de limão, ajuste o sal e a pimenta, e misture delicadamente antes de servir."
+    ],
+    "notas_nutricionais": "Rica em proteínas magras (frango), carboidratos complexos (quinoa) e gorduras saudáveis (abacate), ideal para almoço ou jantar balanceado."
+  },
+  {
+    "nome": "Wrap Integral de Atum",
+    "categoria": "Gerais",
+    "ingredientes": [
+      "1 pão sírio integral ou wrap integral",
+      "1 lata de atum em água, escorrido",
+      "2 colheres de sopa de iogurte natural desnatado",
+      "1/2 cenoura ralada",
+      "1/4 de pepino em rodelas finas",
+      "Folhas de alface",
+      "1 colher de chá de mostarda Dijon",
+      "Sal e pimenta a gosto"
+    ],
+    "preparo": [
+      "Em uma tigela, misture o atum escorrido com o iogurte natural, mostarda, sal e pimenta.",
+      "Abra o pão sírio ou wrap e espalhe a mistura de atum no centro.",
+      "Adicione a cenoura ralada, rodelas de pepino e folhas de alface por cima.",
+      "Enrole o wrap com cuidado, cortando ao meio se desejar, e sirva imediatamente."
+    ],
+    "notas_nutricionais": "Baixo em calorias, com proteínas de alta qualidade (atum) e fibras (vegetais e pão integral), perfeito para um lanche rápido ou almoço leve."
+  },
+  {
+    "nome": "Omelete de Claras com Espinafre",
+    "categoria": "Gerais",
+    "ingredientes": [
+      "4 claras de ovo",
+      "1/2 xícara de espinafre fresco picado",
+      "1/4 de cebola picada",
+      "1 colher de chá de azeite de oliva",
+      "1 fatia de queijo cottage (opcional)",
+      "Sal e pimenta a gosto"
+    ],
+    "preparo": [
+      "Aqueça o azeite em uma frigideira antiaderente em fogo médio e refogue a cebola até ficar transparente.",
+      "Adicione o espinafre e cozinhe por 1-2 minutos até murchar.",
+      "Bata as claras com uma pitada de sal e pimenta, despeje na frigideira sobre os vegetais.",
+      "Cozinhe por 3-4 minutos até firmar, adicione o queijo cottage (se usar) e dobre a omelete ao meio.",
+      "Sirva quente, acompanhada de uma salada ou pão integral."
+    ],
+    "notas_nutricionais": "Baixa em gorduras e rica em proteínas (claras) e micronutrientes (espinafre), ideal para café da manhã ou jantar leve."
+  },
+  {
+    "nome": "Sopa de Abóbora com Gengibre",
+    "categoria": "Gerais",
+    "ingredientes": [
+      "500g de abóbora descascada e cortada em cubos",
+      "1 colher de sopa de gengibre fresco ralado",
+      "1/2 cebola picada",
+      "1 dente de alho picado",
+      "1 colher de chá de azeite de oliva",
+      "500ml de caldo de legumes caseiro",
+      "Sal e pimenta a gosto",
+      "1 colher de sopa de creme de leite light (opcional)"
+    ],
+    "preparo": [
+      "Em uma panela, aqueça o azeite e refogue a cebola e o alho até dourarem.",
+      "Adicione o gengibre e a abóbora, refogando por 5 minutos.",
+      "Despeje o caldo de legumes, tempere com sal e pimenta, e cozinhe em fogo médio por 20 minutos, até a abóbora ficar macia.",
+      "Bata no liquidificador até obter um creme homogêneo. Se desejar, adicione o creme de leite light.",
+      "Sirva quente, decorando com ervas frescas, se preferir."
+    ],
+    "notas_nutricionais": "Leve e rica em fibras e antioxidantes (abóbora, gengibre), ideal para um jantar saudável ou refeição pós-treino leve."
+  },
+  {
+    "nome": "Panqueca de Batata-Doce",
+    "categoria": "Gerais",
+    "ingredientes": [
+      "1/2 xícara de batata-doce cozida e amassada",
+      "2 ovos",
+      "1 colher de sopa de farinha de aveia",
+      "1 colher de chá de fermento em pó",
+      "Canela a gosto",
+      "1 colher de chá de mel (opcional, para servir)",
+      "1 colher de chá de azeite para untar"
+    ],
+    "preparo": [
+      "Em uma tigela, misture a batata-doce amassada, os ovos, a farinha de aveia, o fermento e a canela até formar uma massa homogênea.",
+      "Aqueça uma frigideira antiaderente untada com azeite em fogo médio.",
+      "Despeje pequenas porções da massa, formando panquecas, e cozinhe por 2-3 minutos de cada lado, até dourarem.",
+      "Sirva quente, regando com mel, se desejar, ou acompanhada de frutas frescas."
+    ],
+    "notas_nutricionais": "Fonte de carboidratos complexos (batata-doce) e proteínas (ovos), ideal para café da manhã ou lanche saudável."
+  },
+  {
+    "nome": "Smoothie de Banana com Pasta de Amendoim",
+    "categoria": "Pré-treino",
+    "ingredientes": [
+      "1 banana madura",
+      "1 colher de sopa de pasta de amendoim natural",
+      "200ml de leite de amêndoas (ou leite desnatado)",
+      "1/4 xícara de aveia em flocos",
+      "1 colher de chá de mel (opcional)",
+      "1 pitada de canela"
+    ],
+    "preparo": [
+      "Coloque todos os ingredientes no liquidificador: banana, pasta de amendoim, leite, aveia, mel (se usar) e canela.",
+      "Bata por 1-2 minutos até obter uma mistura cremosa e homogênea.",
+      "Sirva imediatamente em um copo, preferencialmente 30-60 minutos antes do treino."
+    ],
+    "notas_nutricionais": "Rico em carboidratos rápidos (banana, aveia) e gorduras saudáveis (pasta de amendoim), fornece energia rápida para o treino."
+  },
+  {
+    "nome": "Torrada Integral com Abacate e Ovo",
+    "categoria": "Pré-treino",
+    "ingredientes": [
+      "1 fatia de pão integral",
+      "1/2 abacate amassado",
+      "1 ovo cozido ou mexido",
+      "1 colher de chá de azeite de oliva",
+      "Sal, pimenta e orégano a gosto"
+    ],
+    "preparo": [
+      "Toste a fatia de pão integral em uma torradeira ou frigideira.",
+      "Amasse o abacate com um garfo, tempere com sal, pimenta e azeite.",
+      "Espalhe o abacate sobre a torrada.",
+      "Prepare o ovo (cozido fatiado ou mexido) e coloque sobre o abacate.",
+      "Polvilhe orégano e sirva imediatamente, 1-2 horas antes do treino."
+    ],
+    "notas_nutricionais": "Combina carboidratos complexos (pão integral), gorduras saudáveis (abacate) e proteínas (ovo), ideal para energia sustentada."
+  },
+  {
+    "nome": "Iogurte com Frutas e Granola",
+    "categoria": "Pré-treino",
+    "ingredientes": [
+      "150g de iogurte natural desnatado",
+      "1/2 xícara de morangos picados",
+      "1/4 xícara de granola sem açúcar",
+      "1 colher de chá de mel",
+      "1 colher de sopa de sementes de chia"
+    ],
+    "preparo": [
+      "Em uma tigela ou copo, coloque o iogurte natural como base.",
+      "Adicione os morangos picados por cima.",
+      "Polvilhe a granola e as sementes de chia.",
+      "Regue com mel e misture levemente antes de consumir, 1 hora antes do treino."
+    ],
+    "notas_nutricionais": "Fornece carboidratos rápidos (frutas, mel), proteínas (iogurte) e fibras (chia, granola), ideal para um lanche pré-treino leve."
+  },
+  {
+    "nome": "Batata-Doce Assada com Canela",
+    "categoria": "Pré-treino",
+    "ingredientes": [
+      "1 batata-doce pequena (cerca de 150g)",
+      "1 colher de chá de azeite de oliva",
+      "1 pitada de canela em pó",
+      "Sal a gosto"
+    ],
+    "preparo": [
+      "Preaqueça o forno a 200°C. Lave e corte a batata-doce em rodelas ou cubos.",
+      "Em uma tigela, misture a batata-doce com azeite, canela e uma pitada de sal.",
+      "Espalhe em uma assadeira forrada com papel-manteiga e asse por 20-25 minutos, virando na metade do tempo, até ficar macia.",
+      "Sirva quente, 1-2 horas antes do treino."
+    ],
+    "notas_nutricionais": "Rica em carboidratos complexos (batata-doce) de absorção lenta, ideal para fornecer energia prolongada durante o treino."
+  },
+  {
+    "nome": "Sanduíche de Pão Integral com Frango",
+    "categoria": "Pré-treino",
+    "ingredientes": [
+      "2 fatias de pão integral",
+      "100g de peito de frango desfiado (cozido ou grelhado)",
+      "1 colher de sopa de creme de ricota light",
+      "Folhas de manjericão",
+      "1 fatia de tomate",
+      "Sal e pimenta a gosto"
+    ],
+    "preparo": [
+      "Tempere o frango desfiado com sal e pimenta, se necessário.",
+      "Espalhe o creme de ricota em uma das fatias de pão.",
+      "Adicione o frango desfiado, folhas de manjericão e a fatia de tomate.",
+      "Feche o sanduíche com a outra fatia de pão e sirva, 1-2 horas antes do treino."
+    ],
+    "notas_nutricionais": "Combina carboidratos complexos (pão integral) e proteínas magras (frango), ideal para energia e preparo muscular pré-treino."
+  },
+  {
+    "nome": "Shake de Whey com Frutas",
+    "categoria": "Pós-treino",
+    "ingredientes": [
+      "1 scoop de whey protein sabor baunilha (cerca de 30g)",
+      "1 banana pequena",
+      "1/2 xícara de morangos congelados",
+      "200ml de água ou leite desnatado",
+      "1 colher de sopa de aveia em flocos"
+    ],
+    "preparo": [
+      "Coloque todos os ingredientes no liquidificador: whey protein, banana, morangos, aveia e água ou leite.",
+      "Bata por 1-2 minutos até obter uma mistura cremosa.",
+      "Sirva imediatamente após o treino para otimizar a recuperação muscular."
+    ],
+    "notas_nutricionais": "Rico em proteínas de rápida absorção (whey) e carboidratos simples (frutas), ideal para reposição muscular e energética pós-treino."
+  },
+  {
+    "nome": "Omelete de Frango com Batata-Doce",
+    "categoria": "Pós-treino",
+    "ingredientes": [
+      "2 ovos inteiros",
+      "100g de frango desfiado (cozido)",
+      "1/2 xícara de batata-doce cozida em cubos",
+      "1 colher de chá de azeite de oliva",
+      "1/4 de cebola picada",
+      "Sal e pimenta a gosto"
+    ],
+    "preparo": [
+      "Aqueça o azeite em uma frigideira antiaderente e refogue a cebola até dourar.",
+      "Adicione o frango desfiado e a batata-doce, aquecendo por 2 minutos.",
+      "Bata os ovos com sal e pimenta, despeje na frigideira sobre a mistura.",
+      "Cozinhe por 3-4 minutos até firmar, vire com cuidado e cozinhe por mais 2 minutos.",
+      "Sirva quente após o treino."
+    ],
+    "notas_nutricionais": "Combina proteínas de alta qualidade (ovos, frango) e carboidratos complexos (batata-doce), ideal para recuperação muscular."
+  },
+  {
+    "nome": "Salada de Atum com Batata",
+    "categoria": "Pós-treino",
+    "ingredientes": [
+      "1 lata de atum em água, escorrido",
+      "1 batata pequena cozida e cortada em cubos",
+      "1/2 xícara de brócolis cozido no vapor",
+      "1 colher de sopa de azeite de oliva",
+      "Suco de 1/2 limão",
+      "Sal, pimenta e ervas frescas a gosto"
+    ],
+    "preparo": [
+      "Em uma tigela, misture o atum escorrido, a batata cozida e o brócolis.",
+      "Regue com azeite de oliva e suco de limão, tempere com sal, pimenta e ervas frescas.",
+      "Misture delicadamente e sirva imediatamente após o treino."
+    ],
+    "notas_nutricionais": "Fonte de proteínas (atum), carboidratos (batata) e micronutrientes (brócolis), ideal para reposição energética e muscular."
+  },
+  {
+    "nome": "Panqueca de Whey com Mel",
+    "categoria": "Pós-treino",
+    "ingredientes": [
+      "1 scoop de whey protein sabor baunilha (cerca de 30g)",
+      "1 ovo",
+      "2 colheres de sopa de farinha de aveia",
+      "50ml de leite desnatado",
+      "1 colher de chá de fermento em pó",
+      "1 colher de chá de mel (para servir)",
+      "1 colher de chá de azeite para untar"
+    ],
+    "preparo": [
+      "Em uma tigela, misture o whey protein, ovo, farinha de aveia, leite e fermento até formar uma massa homogênea.",
+      "Aqueça uma frigideira antiaderente untada com azeite em fogo médio.",
+      "Despeje a massa, formando uma panqueca, e cozinhe por 2-3 minutos de cada lado, até dourar.",
+      "Sirva quente, regando com mel, após o treino."
+    ],
+    "notas_nutricionais": "Rica em proteínas de rápida absorção (whey, ovo) e carboidratos (aveia), ideal para recuperação muscular pós-treino."
+  },
+  {
+    "nome": "Iogurte com Whey e Frutas",
+    "categoria": "Pós-treino",
+    "ingredientes": [
+      "150g de iogurte natural desnatado",
+      "1/2 scoop de whey protein sabor baunilha (cerca de 15g)",
+      "1/2 xícara de manga picada",
+      "1 colher de sopa de sementes de linhaça",
+      "1 colher de chá de mel"
+    ],
+    "preparo": [
+      "Em uma tigela, misture o iogurte natural com o whey protein até ficar homogêneo.",
+      "Adicione a manga picada e as sementes de linhaça por cima.",
+      "Regue com mel e sirva imediatamente após o treino."
+    ],
+    "notas_nutricionais": "Combina proteínas (whey, iogurte), carboidratos simples (manga) e gorduras saudáveis (linhaça), ideal para recuperação rápida."
+  }
+]
