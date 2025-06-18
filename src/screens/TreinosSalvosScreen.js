@@ -18,19 +18,34 @@ export default function TreinosSalvosScreen() {
   const navigation = useNavigation();
 
   useEffect(() => {
-    carregarTreinos();
-  }, []);
+    const unsubscribe = navigation.addListener('focus', () => {
+      carregarTreinos();
+    });
+    return unsubscribe;
+  }, [navigation]);
 
   const carregarTreinos = async () => {
-    const dados = await AsyncStorage.getItem('@treinos_salvos');
-    if (dados) setTreinos(JSON.parse(dados));
+    const user = await AsyncStorage.getItem('@aluno_logado');
+    const aluno = user ? JSON.parse(user) : null;
+    if (!aluno) return;
+
+    const dados = await AsyncStorage.getItem(`@historico_treinos_${aluno.email}`);
+    if (dados) {
+      const lista = JSON.parse(dados);
+      setTreinos(lista);
+    } else {
+      setTreinos([]);
+    }
   };
 
-  const removerTreino = async (index) => {
-    const novos = [...treinos];
-    novos.splice(index, 1);
-    await AsyncStorage.setItem('@treinos_salvos', JSON.stringify(novos));
-    setTreinos(novos);
+  const removerTreino = async (id) => {
+    const user = await AsyncStorage.getItem('@aluno_logado');
+    const aluno = user ? JSON.parse(user) : null;
+    if (!aluno) return;
+
+    const atualizados = treinos.filter((t) => t.id !== id);
+    setTreinos(atualizados);
+    await AsyncStorage.setItem(`@historico_treinos_${aluno.email}`, JSON.stringify(atualizados));
   };
 
   const abrirTreino = (treino) => {
@@ -48,13 +63,13 @@ export default function TreinosSalvosScreen() {
       <Text style={styles.title}>Treinos Salvos</Text>
       <ScrollView style={{ width: '100%' }}>
         <TouchableOpacity onPress={() => navigation.goBack()}>
-            <Text style={styles.voltar}>← Voltar ao Menu</Text>
+          <Text style={styles.voltar}>← Voltar ao Menu</Text>
         </TouchableOpacity>
 
         {treinos.map((t, i) => (
-          <View key={i} style={styles.card}>
-            <Text style={styles.nome}>{t.nome}</Text>
-            <Text style={styles.data}>Criado em: {new Date(t.criadoEm).toLocaleDateString('pt-BR')}</Text>
+          <View key={t.id} style={styles.card}>
+            <Text style={styles.nome}>Treino #{i + 1}</Text>
+            <Text style={styles.data}>Criado em: {t.data}</Text>
 
             <View style={styles.buttons}>
               <TouchableOpacity onPress={() => abrirTreino(t)}>
@@ -64,7 +79,7 @@ export default function TreinosSalvosScreen() {
               <TouchableOpacity onPress={() =>
                 Alert.alert('Confirmar', 'Remover este treino?', [
                   { text: 'Cancelar' },
-                  { text: 'Remover', onPress: () => removerTreino(i) }
+                  { text: 'Remover', onPress: () => removerTreino(t.id) }
                 ])
               }>
                 <Text style={styles.remover}>🗑️ Excluir</Text>
@@ -74,16 +89,20 @@ export default function TreinosSalvosScreen() {
         ))}
       </ScrollView>
 
-      {/* Modal para exibir conteúdo do treino */}
       <Modal visible={modalVisible} animationType="slide">
         <ScrollView contentContainerStyle={styles.modalContainer}>
-          <Text style={styles.modalTitle}>{treinoSelecionado?.nome}</Text>
+          <Text style={styles.modalTitle}>Treino</Text>
 
           {treinoSelecionado?.plano?.map((dia, idx) => (
             <View key={idx} style={styles.diaCard}>
               <Text style={styles.diaNome}>{dia.dia}</Text>
               {dia.exercicios.map((ex, i) => (
-                <Text key={i} style={styles.exItem}>• {ex.nome}</Text>
+                <View key={i} style={styles.exercicioBox}>
+                  <Text style={styles.exItem}>• {ex.nome}</Text>
+                  <Text style={styles.detalhes}>
+                    Séries: {ex.series} | Repetições: {ex.repeticoes} | Carga: {ex.carga_percentual}% | Descanso: {ex.descanso_segundos}s
+                  </Text>
+                </View>
               ))}
             </View>
           ))}
@@ -94,8 +113,7 @@ export default function TreinosSalvosScreen() {
           <TouchableOpacity onPress={() => {
             fecharModal();
             navigation.navigate('EditarTreino', {
-              treinoIndex: treinos.indexOf(treinoSelecionado),
-              treinoOriginal: treinoSelecionado
+              treino: treinoSelecionado
             });
           }}>
             <Text style={styles.editar}>✏️ Editar Treino</Text>
@@ -123,49 +141,17 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     marginBottom: 12
   },
-  nome: {
-    fontSize: 16,
-    color: '#fff'
-  },
-  data: {
-    color: '#aaa',
-    fontSize: 13,
-    marginBottom: 8
-  },
-  buttons: {
-    flexDirection: 'row',
-    justifyContent: 'space-between'
-  },
-  ver: {
-    color: '#4fc3f7',
-    fontSize: 16
-  },
-  remover: {
-    color: '#f44336',
-    fontSize: 16
-  },
-  modalContainer: {
-    padding: 20,
-    backgroundColor: '#121212'
-  },
-  modalTitle: {
-    fontSize: 20,
-    color: '#fff',
-    marginBottom: 16
-  },
-  diaCard: {
-    marginBottom: 16
-  },
-  diaNome: {
-    color: '#4caf50',
-    fontSize: 16,
-    marginBottom: 4
-  },
-  exItem: {
-    color: '#ccc',
-    fontSize: 14,
-    marginLeft: 8
-  },
+  nome: { fontSize: 16, color: '#fff' },
+  data: { color: '#aaa', fontSize: 13, marginBottom: 8 },
+  buttons: { flexDirection: 'row', justifyContent: 'space-between' },
+  ver: { color: '#4fc3f7', fontSize: 16 },
+  remover: { color: '#f44336', fontSize: 16 },
+  modalContainer: { padding: 20, backgroundColor: '#121212' },
+  modalTitle: { fontSize: 20, color: '#fff', marginBottom: 16 },
+  diaCard: { marginBottom: 16 },
+  diaNome: { color: '#4caf50', fontSize: 16, marginBottom: 4 },
+  exItem: { color: '#ccc', fontSize: 14, marginLeft: 8 },
+  detalhes: { color: '#999', fontSize: 13, marginLeft: 16 },
   fechar: {
     marginTop: 20,
     color: '#bbb',
@@ -173,18 +159,21 @@ const styles = StyleSheet.create({
     textDecorationLine: 'underline'
   },
   voltar: {
-  marginTop: 20,
-  color: '#bbb',
-  fontSize: 16,
-  textDecorationLine: 'underline',
-  textAlign: 'start',
-  margin: 10,
+    marginTop: 20,
+    color: '#bbb',
+    fontSize: 16,
+    textDecorationLine: 'underline',
+    textAlign: 'start',
+    margin: 10
   },
   editar: {
-  marginTop: 12,
-  fontSize: 16,
-  color: '#4caf50',
-  textAlign: 'center',
-  textDecorationLine: 'underline'
+    marginTop: 12,
+    fontSize: 16,
+    color: '#4caf50',
+    textAlign: 'center',
+    textDecorationLine: 'underline'
+  },
+  exercicioBox: {
+    marginBottom: 8
   }
 });

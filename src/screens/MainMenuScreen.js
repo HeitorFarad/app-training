@@ -14,7 +14,7 @@ export default function MainMenuScreen({ navigation }) {
         text: 'Sair',
         onPress: () => {
           logout();
-          navigation.navigate('Home');
+          navigation.navigate('LoginTipo');
         },
       },
     ]);
@@ -27,7 +27,7 @@ export default function MainMenuScreen({ navigation }) {
 
       <TouchableOpacity
         style={styles.button}
-        onPress={() => navigation.navigate('Anamnese')}
+        onPress={() => navigation.navigate('Anamnese', { gerarPlano: true })}
       >
         <Text style={styles.buttonText}>Criar Treino</Text>
       </TouchableOpacity>
@@ -45,6 +45,20 @@ export default function MainMenuScreen({ navigation }) {
         onPress={() => navigation.navigate('TreinosSalvos')}
       >
         <Text style={styles.buttonText}>Ver Treinos Salvos</Text>
+      </TouchableOpacity>
+
+      <TouchableOpacity
+        style={styles.button}
+        onPress={() => navigation.navigate('AjudaProfissional')}
+      >
+        <Text style={styles.buttonText}>Ajuda Profissional</Text>
+      </TouchableOpacity>
+
+      <TouchableOpacity
+        style={styles.button}
+        onPress={() => navigation.navigate('TreinoDoPersonal')}
+      >
+        <Text style={styles.buttonText}>Treino do Personal</Text>
       </TouchableOpacity>
 
       <TouchableOpacity style={styles.logoutButton} onPress={handleLogout}>

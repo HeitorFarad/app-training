@@ -3,26 +3,26 @@ import {
   View,
   Text,
   TextInput,
-  TouchableOpacity,
   StyleSheet,
-  Dimensions,
-  ScrollView,
+  TouchableOpacity,
   Alert,
+  ScrollView
 } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation, useRoute } from '@react-navigation/native';
 
-const { width } = Dimensions.get('window');
+const opcoes = {
+  objetivo: ['Perder peso', 'Hipertrofia', 'Ganhar força', 'Potência', 'Saúde no geral'],
+  local: ['Casa', 'Academia'],
+  nivel: ['Sedentário', 'Pouco ativo', 'Ativo'],
+  lesao: ['Não', 'Sim'],
+  localLesao: ['Tornozelo', 'Joelho', 'Quadríceps', 'Posterior', 'Glúteo'],
+  frequencia: ['1', '2', '3', '4', '5', '6', '7']
+};
 
-const objetivos = ['perder peso', 'hipertrofia', 'força', 'potência', 'saúde'];
-const locais = ['casa', 'academia'];
-const niveis = ['sedentário', 'pouco ativo', 'ativo'];
-const possuiLesao = ['sim', 'não'];
-const regioesLesao = ['joelho', 'tornozelo', 'ombro', 'coluna', 'braço', 'perna', 'outro'];
-const frequencias = ['1', '2', '3', '4', '5', '6', '7'];
-
-export default function AnamneseScreen({ navigation }) {
-  const [form, setForm] = useState({
+export default function AnamneseScreen() {
+  const navigation = useNavigation();
+  const [respostas, setRespostas] = useState({
     objetivo: '',
     local: '',
     idade: '',
@@ -30,106 +30,123 @@ export default function AnamneseScreen({ navigation }) {
     altura: '',
     nivel: '',
     lesao: '',
-    regiaoLesao: '',
-    frequencia: '',
+    localLesao: '',
+    frequencia: ''
   });
 
-  const handleChange = (key, value) => {
-    setForm({ ...form, [key]: value });
+  const route = useRoute();
+  const gerarPlanoAoFinalizar = route.params?.gerarPlano || false;
+
+  const handleChange = (campo, valor) => {
+    setRespostas((prev) => ({ ...prev, [campo]: valor }));
   };
 
-  const handleSubmit = async () => {
-    const camposObrigatorios = ['objetivo', 'local', 'idade', 'peso', 'altura', 'nivel', 'frequencia'];
+  const handleFinalizar = async () => {
+    const aluno = JSON.parse(await AsyncStorage.getItem('@aluno_logado'));
+    if (!aluno) return;
 
-    for (let campo of camposObrigatorios) {
-      if (!form[campo]) {
-        Alert.alert('Erro', 'Preencha todos os campos obrigatórios.');
-        return;
-      }
-    }
+    await AsyncStorage.setItem(`@anamnese_${aluno.email}`, JSON.stringify(respostas));
 
-    try {
-      await AsyncStorage.setItem('@anamnese', JSON.stringify(form));
-      Alert.alert('Sucesso', 'Anamnese salva com sucesso!');
+    const vinculos = await AsyncStorage.getItem('@vinculos');
+    const listaVinculos = vinculos ? JSON.parse(vinculos) : [];
+    const estaVinculado = listaVinculos.some((v) => v.aluno === aluno.email);
+
+    if (gerarPlanoAoFinalizar) {
+      // Sempre gera o plano se veio do botão "Criar Treino"
+      const { gerarPlano } = require('../utils/geradorTreino');
+      const plano = gerarPlano(respostas);
+      await AsyncStorage.setItem(`@plano_${aluno.email}`, JSON.stringify(plano));
+      Alert.alert('Sucesso', 'Plano criado com base na sua nova anamnese.');
       navigation.navigate('CreateTraining');
-    } catch (error) {
-      console.log(error);
-      Alert.alert('Erro', 'Falha ao salvar anamnese.');
+      return;
     }
+
+    // Se veio de outra tela (exemplo: vinculação com personal)
+    if (estaVinculado) {
+      Alert.alert('Anamnese salva!', 'Seu personal poderá criar seu plano.');
+    } else {
+      Alert.alert('Anamnese salva!', 'Agora você pode criar seu plano de treino.');
+    }
+
+    navigation.navigate('MainMenu');
   };
 
-  const renderSelect = (label, key, options) => (
-    <View style={styles.selectGroup}>
-      <Text style={styles.selectLabel}>{label}</Text>
-      <View style={styles.optionRow}>
-        {options.map((option) => (
+  const renderBotoes = (campo) => {
+    return (
+      <View style={styles.opcoesContainer}>
+        {opcoes[campo].map((op, i) => (
           <TouchableOpacity
-            key={option}
+            key={i}
             style={[
-              styles.optionButton,
-              form[key] === option && styles.optionSelected,
+              styles.opcao,
+              respostas[campo] === op && styles.opcaoSelecionada
             ]}
-            onPress={() => handleChange(key, option)}
+            onPress={() => handleChange(campo, op)}
           >
-            <Text
-              style={[
-                styles.optionText,
-                form[key] === option && styles.optionTextSelected,
-              ]}
-            >
-              {option}
-            </Text>
+            <Text style={styles.opcaoTexto}>{op}</Text>
           </TouchableOpacity>
         ))}
       </View>
-    </View>
-  );
-  
+    );
+  };
 
   return (
     <ScrollView contentContainerStyle={styles.container}>
-
-      <TouchableOpacity style={styles.backButton} onPress={() => navigation.navigate('MainMenu')}>
-        <Text style={styles.backText}>← Voltar ao Menu</Text>
-      </TouchableOpacity>
-
       <Text style={styles.title}>Anamnese</Text>
 
-      {renderSelect('Objetivo', 'objetivo', objetivos)}
-      {renderSelect('Local de treino', 'local', locais)}
+      <Text style={styles.label}>Objetivo</Text>
+      {renderBotoes('objetivo')}
+
+      <Text style={styles.label}>Local de treino</Text>
+      {renderBotoes('local')}
 
       <TextInput
         placeholder="Idade"
-        placeholderTextColor="#888"
-        style={styles.input}
+        placeholderTextColor="#aaa"
         keyboardType="numeric"
-        onChangeText={(value) => handleChange('idade', value)}
+        style={styles.input}
+        value={respostas.idade}
+        onChangeText={(v) => handleChange('idade', v)}
       />
-
       <TextInput
         placeholder="Peso (kg)"
-        placeholderTextColor="#888"
-        style={styles.input}
+        placeholderTextColor="#aaa"
         keyboardType="numeric"
-        onChangeText={(value) => handleChange('peso', value)}
+        style={styles.input}
+        value={respostas.peso}
+        onChangeText={(v) => handleChange('peso', v)}
       />
-
       <TextInput
         placeholder="Altura (cm)"
-        placeholderTextColor="#888"
-        style={styles.input}
+        placeholderTextColor="#aaa"
         keyboardType="numeric"
-        onChangeText={(value) => handleChange('altura', value)}
+        style={styles.input}
+        value={respostas.altura}
+        onChangeText={(v) => handleChange('altura', v)}
       />
 
-      {renderSelect('Nível de atividade física', 'nivel', niveis)}
-      {renderSelect('Possui lesão?', 'lesao', possuiLesao)}
+      <Text style={styles.label}>Nível de atividade</Text>
+      {renderBotoes('nivel')}
 
-      {form.lesao === 'sim' && renderSelect('Região da lesão', 'regiaoLesao', regioesLesao)}
-      {renderSelect('Dias na semana para treinar', 'frequencia', frequencias)}
+      <Text style={styles.label}>Possui lesão?</Text>
+      {renderBotoes('lesao')}
 
-      <TouchableOpacity style={styles.button} onPress={handleSubmit}>
-        <Text style={styles.buttonText}>Salvar Anamnese</Text>
+      {respostas.lesao === 'Sim' && (
+        <>
+          <Text style={styles.label}>Local da lesão</Text>
+          {renderBotoes('localLesao')}
+        </>
+      )}
+
+      <Text style={styles.label}>Frequência semanal</Text>
+      {renderBotoes('frequencia')}
+
+      <TouchableOpacity style={styles.button} onPress={handleFinalizar}>
+        <Text style={styles.buttonText}>Finalizar</Text>
+      </TouchableOpacity>
+
+      <TouchableOpacity onPress={() => navigation.goBack()}>
+        <Text style={styles.voltar}>← Voltar</Text>
       </TouchableOpacity>
     </ScrollView>
   );
@@ -137,78 +154,61 @@ export default function AnamneseScreen({ navigation }) {
 
 const styles = StyleSheet.create({
   container: {
-    flexGrow: 1,
-    backgroundColor: '#121212',
-    alignItems: 'center',
     padding: 20,
-    paddingBottom: 40,
+    backgroundColor: '#121212',
+    flexGrow: 1
   },
   title: {
-    fontSize: 26,
     color: '#fff',
+    fontSize: 22,
     marginBottom: 20,
+    textAlign: 'center'
+  },
+  label: {
+    color: '#fff',
+    fontSize: 16,
+    marginTop: 16,
+    marginBottom: 4
   },
   input: {
-    width: width * 0.9,
-    backgroundColor: '#1e1e1e',
-    padding: 12,
-    borderRadius: 10,
+    backgroundColor: '#1f1f1f',
     color: '#fff',
-    marginBottom: 16,
+    padding: 12,
+    borderRadius: 8,
+    marginBottom: 12
   },
-  selectGroup: {
-    width: width * 0.9,
-    marginBottom: 20,
-  },
-  selectLabel: {
-    color: '#ccc',
-    marginBottom: 8,
-    fontSize: 16,
-  },
-  optionRow: {
+  opcoesContainer: {
     flexDirection: 'row',
     flexWrap: 'wrap',
-    gap: 10,
+    marginBottom: 10
   },
-  optionButton: {
-    backgroundColor: '#1e1e1e',
-    paddingVertical: 10,
-    paddingHorizontal: 14,
+  opcao: {
+    backgroundColor: '#333',
+    padding: 10,
     borderRadius: 8,
-    marginRight: 10,
-    marginBottom: 10,
+    margin: 5
   },
-  optionSelected: {
-    backgroundColor: '#4caf50',
+  opcaoSelecionada: {
+    backgroundColor: '#4caf50'
   },
-  optionText: {
-    color: '#fff',
-    fontSize: 14,
-  },
-  optionTextSelected: {
-    color: '#fff',
-    fontWeight: 'bold',
+  opcaoTexto: {
+    color: '#fff'
   },
   button: {
-    backgroundColor: '#333',
-    paddingVertical: 14,
+    backgroundColor: '#4caf50',
+    padding: 14,
     borderRadius: 10,
-    width: width * 0.9,
     alignItems: 'center',
-    marginTop: 10,
+    marginTop: 20
   },
   buttonText: {
     color: '#fff',
-    fontSize: 16,
+    fontSize: 16
   },
-  backButton: {
-  marginTop: 20,
-  alignSelf: 'flex-start',
-},
-  backText: {
-  color: '#bbb',
-  fontSize: 16,
-  textDecorationLine: 'underline',
-},
-
+  voltar: {
+    marginTop: 20,
+    color: '#bbb',
+    textAlign: 'center',
+    textDecorationLine: 'underline'
+  }
 });

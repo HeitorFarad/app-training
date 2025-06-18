@@ -1,68 +1,55 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   View,
   Text,
+  TouchableOpacity,
   ScrollView,
   StyleSheet,
-  Dimensions,
-  TouchableOpacity,
   Alert
 } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { useNavigation, useRoute } from '@react-navigation/native';
-
-const { width } = Dimensions.get('window');
+import { useRoute, useNavigation } from '@react-navigation/native';
 
 export default function EditarTreinoScreen() {
-  const navigation = useNavigation();
   const route = useRoute();
+  const navigation = useNavigation();
+  const treino = route.params?.treino;
 
-  const { treinoIndex, treinoOriginal } = route.params;
-  const [plano, setPlano] = useState([...treinoOriginal.plano]);
+  const [plano, setPlano] = useState(treino?.plano || []);
+  const [treinoId] = useState(treino?.id || null);
 
-  const removerExercicio = (diaIndex, exercicioIndex) => {
-    const novoPlano = [...plano];
-    novoPlano[diaIndex].exercicios.splice(exercicioIndex, 1);
-    setPlano(novoPlano);
-  };
-
-  const adicionarExercicio = (diaIndex, novoEx) => {
-    const jaExiste = plano[diaIndex].exercicios.some((e) => e.nome === novoEx.nome);
-    if (jaExiste) {
-      Alert.alert('Já adicionado', 'Esse exercício já está no treino.');
-      return;
-    }
-
-    const novoPlano = [...plano];
-    novoPlano[diaIndex].exercicios.push(novoEx);
-    setPlano(novoPlano);
-  };
-
-  const salvarAlteracoes = async () => {
-    try {
-      const dados = await AsyncStorage.getItem('@treinos_salvos');
-      let treinos = dados ? JSON.parse(dados) : [];
-
-      treinos[treinoIndex].plano = plano;
-      await AsyncStorage.setItem('@treinos_salvos', JSON.stringify(treinos));
-
-      Alert.alert('Sucesso', 'Treino atualizado!');
+  useEffect(() => {
+    if (!treino || !treino.plano || !treino.id) {
+      Alert.alert('Erro', 'Treino inválido.');
       navigation.goBack();
-    } catch (err) {
-      console.log(err);
-      Alert.alert('Erro', 'Não foi possível salvar as alterações.');
+    }
+  }, []);
+
+  const removerExercicio = async (diaIndex, nome) => {
+    const novoPlano = [...plano];
+    const dia = novoPlano[diaIndex];
+    dia.exercicios = dia.exercicios.filter((e) => e.nome !== nome);
+    novoPlano[diaIndex] = dia;
+    setPlano(novoPlano);
+
+    const aluno = await AsyncStorage.getItem('@aluno_logado');
+    const email = JSON.parse(aluno)?.email;
+    const dados = await AsyncStorage.getItem(`@historico_treinos_${email}`);
+    const lista = dados ? JSON.parse(dados) : [];
+
+    const index = lista.findIndex((t) => t.id === treinoId);
+    if (index !== -1) {
+      lista[index].plano = novoPlano;
+      await AsyncStorage.setItem(`@historico_treinos_${email}`, JSON.stringify(lista));
     }
   };
 
-  const irParaAdicionar = (diaIndex, grupoSelecionado = null) => {
-    const local = treinoOriginal.local || 'academia'; // fallback
-
+  const irParaAdicionar = (grupo, diaIndex) => {
     navigation.navigate('AdicionarExercicio', {
       diaIndex,
-      grupoSelecionado,
-      localTreino: local,
-      exerciciosDoDia: plano[diaIndex].exercicios,
-      onAdd: adicionarExercicio
+      grupoSelecionado: grupo,
+      localTreino: 'academia', // trocar pelo valor real se desejar
+      treinoId
     });
   };
 
@@ -77,140 +64,95 @@ export default function EditarTreinoScreen() {
 
   return (
     <ScrollView contentContainerStyle={styles.container}>
-      <Text style={styles.title}>Editar {treinoOriginal.nome}</Text>
+      <Text style={styles.title}>Editar Treino</Text>
 
-      {plano.map((dia, diaIndex) => {
+      {plano.map((dia, i) => {
         const grupos = agruparPorGrupo(dia.exercicios);
-
         return (
-          <View key={dia.dia} style={styles.card}>
+          <View key={i} style={styles.card}>
             <Text style={styles.dia}>{dia.dia}</Text>
-
-            {Object.entries(grupos).map(([grupo, exercicios], i) => (
-              <View key={i} style={styles.grupoBox}>
-                <View style={styles.grupoHeader}>
-                  <Text style={styles.grupoNome}>{grupo}</Text>
-                  <TouchableOpacity onPress={() => irParaAdicionar(diaIndex, grupo)}>
-                    <Text style={styles.addBtn}>➕</Text>
+            {Object.entries(grupos).map(([grupo, exercicios], idx) => (
+              <View key={idx}>
+                <View style={styles.headerGrupo}>
+                  <Text style={styles.grupo}>{grupo}</Text>
+                  <TouchableOpacity onPress={() => irParaAdicionar(grupo, i)}>
+                    <Text style={styles.adicionar}>+ Adicionar</Text>
                   </TouchableOpacity>
                 </View>
-
-                {exercicios.map((ex, exIndex) => (
-                  <View key={exIndex} style={styles.exItem}>
-                    <View style={styles.exHeader}>
-                      <Text style={styles.exNome}>• {ex.nome}</Text>
-                      <TouchableOpacity onPress={() => removerExercicio(diaIndex, dia.exercicios.indexOf(ex))}>
-                        <Text style={styles.remover}>Remover</Text>
-                      </TouchableOpacity>
+                {exercicios.map((ex, j) => (
+                  <TouchableOpacity
+                    key={j}
+                    onPress={() =>
+                      Alert.alert('Remover', `Remover ${ex.nome}?`, [
+                        { text: 'Cancelar' },
+                        {
+                          text: 'Remover',
+                          onPress: () => removerExercicio(i, ex.nome)
+                        }
+                      ])
+                    }
+                  >
+                    <View style={styles.exBox}>
+                      <Text style={styles.item}>• {ex.nome}</Text>
+                      <Text style={styles.detalhes}>
+                        Séries: {ex.series} | Repetições: {ex.repeticoes} | Carga: {ex.carga_percentual}% | Descanso: {ex.descanso_segundos}s
+                      </Text>
                     </View>
-                    <Text style={styles.exDesc}>{ex.descricao}</Text>
-                  </View>
+                  </TouchableOpacity>
                 ))}
               </View>
             ))}
-
-            <TouchableOpacity onPress={() => irParaAdicionar(diaIndex)}>
-              <Text style={styles.addOutroGrupo}>+ Adicionar exercício de outro grupo</Text>
-            </TouchableOpacity>
           </View>
         );
       })}
 
-      <TouchableOpacity style={styles.saveButton} onPress={salvarAlteracoes}>
-        <Text style={styles.saveButtonText}>Salvar Alterações</Text>
-      </TouchableOpacity>
-
       <TouchableOpacity onPress={() => navigation.goBack()}>
-        <Text style={styles.backText}>← Voltar</Text>
+        <Text style={styles.voltar}>← Voltar</Text>
       </TouchableOpacity>
     </ScrollView>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flexGrow: 1,
-    backgroundColor: '#121212',
-    padding: 20,
-    alignItems: 'center'
-  },
-  title: {
-    color: '#fff',
-    fontSize: 22,
-    marginBottom: 20
-  },
+  container: { backgroundColor: '#121212', flexGrow: 1, padding: 20 },
+  title: { color: '#fff', fontSize: 22, marginBottom: 20, textAlign: 'center' },
   card: {
-    width: width * 0.9,
     backgroundColor: '#1e1e1e',
     padding: 16,
     borderRadius: 10,
     marginBottom: 20
   },
-  dia: {
-    color: '#4caf50',
-    fontSize: 18,
-    marginBottom: 10
-  },
-  grupoBox: {
-    marginBottom: 10
-  },
-  grupoHeader: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center'
-  },
-  grupoNome: {
+  dia: { color: '#4caf50', fontSize: 18, marginBottom: 10 },
+  grupo: {
     color: '#ffca28',
-    fontSize: 16,
-    fontWeight: 'bold'
-  },
-  addBtn: {
-    color: '#4caf50',
-    fontSize: 18
-  },
-  exItem: {
-    marginBottom: 10
-  },
-  exHeader: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center'
-  },
-  exNome: {
-    color: '#fff',
-    fontSize: 15,
-    fontWeight: '600'
-  },
-  exDesc: {
-    color: '#ccc',
-    fontSize: 13
-  },
-  remover: {
-    color: '#f44336',
-    fontSize: 14,
-    textDecorationLine: 'underline'
-  },
-  addOutroGrupo: {
+    fontWeight: 'bold',
     marginTop: 10,
-    fontSize: 14,
-    color: '#4fc3f7',
-    textDecorationLine: 'underline'
-  },
-  saveButton: {
-    marginTop: 20,
-    backgroundColor: '#4caf50',
-    paddingVertical: 14,
-    paddingHorizontal: 30,
-    borderRadius: 10
-  },
-  saveButtonText: {
-    color: '#fff',
     fontSize: 16
   },
-  backText: {
+  item: { color: '#ccc', marginLeft: 10, fontSize: 14 },
+  detalhes: {
+    color: '#999',
+    fontSize: 13,
+    marginLeft: 16,
+    marginBottom: 6
+  },
+  voltar: {
+    marginTop: 20,
     color: '#bbb',
-    fontSize: 16,
-    textDecorationLine: 'underline',
-    marginTop: 20
+    textAlign: 'center',
+    textDecorationLine: 'underline'
+  },
+  headerGrupo: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center'
+  },
+  adicionar: {
+    color: '#4caf50',
+    fontSize: 14,
+    textDecorationLine: 'underline'
+  },
+  exBox: {
+    marginBottom: 8
   }
 });

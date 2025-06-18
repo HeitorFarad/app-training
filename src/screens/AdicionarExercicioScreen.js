@@ -2,148 +2,197 @@ import React, { useEffect, useState } from 'react';
 import {
   View,
   Text,
-  ScrollView,
-  StyleSheet,
+  TextInput,
+  FlatList,
   TouchableOpacity,
+  StyleSheet,
   Alert
 } from 'react-native';
-import exercisesJson from '../data/exercises.json';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useNavigation, useRoute } from '@react-navigation/native';
-
-const gruposDisponiveis = [
-  'Peitoral', 'Costas', 'Tríceps', 'Bíceps',
-  'Ombros', 'Quadríceps', 'Posterior de Coxa',
-  'Glúteos', 'Core', 'Corpo inteiro', 'Cardio'
-];
+import exercises from '../data/exercises.json';
 
 export default function AdicionarExercicioScreen() {
-  const route = useRoute();
   const navigation = useNavigation();
-  const { diaIndex, grupoSelecionado, localTreino, onAdd } = route.params;
+  const route = useRoute();
 
-  const [grupo, setGrupo] = useState(grupoSelecionado || 'Peitoral');
-  const [exerciciosFiltrados, setExerciciosFiltrados] = useState([]);
+  const { diaIndex, grupoSelecionado, localTreino, treinoId } = route.params;
+
+  const [filtroGrupo, setFiltroGrupo] = useState(grupoSelecionado || '');
+  const [busca, setBusca] = useState('');
+  const [exibidos, setExibidos] = useState([]);
 
   useEffect(() => {
-    const filtrados = exercisesJson.filter(
-      (ex) => ex.grupo_muscular === grupo && ex.local === localTreino
-    );
-    setExerciciosFiltrados(filtrados);
-  }, [grupo]);
+    filtrar();
+  }, [filtroGrupo, busca]);
 
-  const handleAdicionar = (exercicio) => {
-    const { exerciciosDoDia } = route.params;
+  const filtrar = () => {
+    let lista = exercises;
 
-    const jaExiste = exerciciosDoDia?.some((ex) => ex.nome === exercicio.nome);
-
-    if (jaExiste) {
-        Alert.alert('Já adicionado', 'Este exercício já está presente no treino do dia.');
-        return;
+    if (localTreino?.toLowerCase() === 'casa') {
+      lista = lista.filter((e) => e.sem_equipamento);
     }
 
-    if (typeof onAdd === 'function') {
-        onAdd(diaIndex, exercicio);
-        navigation.goBack();
-    } else {
-        Alert.alert('Erro', 'Função de retorno inválida.');
+    if (filtroGrupo) {
+      lista = lista.filter((e) =>
+        e.grupo_muscular.toLowerCase().includes(filtroGrupo.toLowerCase())
+      );
     }
+
+    if (busca) {
+      lista = lista.filter((e) =>
+        e.nome.toLowerCase().includes(busca.toLowerCase())
+      );
+    }
+
+    setExibidos(lista);
   };
 
+  const handleAdicionar = async (exercicio) => {
+    const aluno = await AsyncStorage.getItem('@aluno_logado');
+    const email = JSON.parse(aluno)?.email;
+    if (!email) return;
+
+    if (treinoId) {
+      // edição de treino salvo
+      const dados = await AsyncStorage.getItem(`@historico_treinos_${email}`);
+      const lista = dados ? JSON.parse(dados) : [];
+
+      const index = lista.findIndex((t) => t.id === treinoId);
+      if (index === -1) {
+        Alert.alert('Erro', 'Treino não encontrado.');
+        return;
+      }
+
+      const treino = lista[index];
+      const dia = treino.plano[diaIndex];
+
+      const existe = dia.exercicios.some((e) => e.nome === exercicio.nome);
+      if (existe) {
+        Alert.alert('Já adicionado', 'Este exercício já está no treino.');
+        return;
+      }
+
+      dia.exercicios.push(exercicio);
+      treino.plano[diaIndex] = dia;
+      lista[index] = treino;
+
+      await AsyncStorage.setItem(`@historico_treinos_${email}`, JSON.stringify(lista));
+    } else {
+      // plano novo
+      const planoSalvo = await AsyncStorage.getItem(`@plano_${email}`);
+      const plano = planoSalvo ? JSON.parse(planoSalvo) : [];
+      const dia = plano[diaIndex];
+
+      const existe = dia.exercicios.some((e) => e.nome === exercicio.nome);
+      if (existe) {
+        Alert.alert('Já adicionado', 'Este exercício já está no treino.');
+        return;
+      }
+
+      dia.exercicios.push(exercicio);
+      plano[diaIndex] = dia;
+
+      await AsyncStorage.setItem(`@plano_${email}`, JSON.stringify(plano));
+    }
+
+    Alert.alert('Exercício adicionado com sucesso!');
+    navigation.goBack();
+  };
+
+  const gruposUnicos = [...new Set(exercises.map((e) => e.grupo_muscular))];
+
   return (
-    <ScrollView contentContainerStyle={styles.container}>
-      <Text style={styles.title}>Adicionar Exercício</Text>
+    <View style={styles.container}>
+      <Text style={styles.titulo}>Adicionar Exercício</Text>
+
+      <TextInput
+        placeholder="Buscar por nome"
+        placeholderTextColor="#aaa"
+        value={busca}
+        onChangeText={setBusca}
+        style={styles.input}
+      />
+
+      <FlatList
+        data={gruposUnicos}
+        keyExtractor={(item) => item}
+        horizontal
+        showsHorizontalScrollIndicator={false}
+        contentContainerStyle={styles.grupos}
+        renderItem={({ item }) => (
+          <TouchableOpacity
+            style={[
+              styles.grupoBotao,
+              filtroGrupo === item && styles.grupoSelecionado
+            ]}
+            onPress={() =>
+              setFiltroGrupo((prev) => (prev === item ? '' : item))
+            }
+          >
+            <Text style={styles.grupoTexto}>{item}</Text>
+          </TouchableOpacity>
+        )}
+      />
+
+      <FlatList
+        data={exibidos}
+        keyExtractor={(item, index) => item.nome + index}
+        renderItem={({ item }) => (
+          <TouchableOpacity
+            style={styles.item}
+            onPress={() => handleAdicionar(item)}
+          >
+            <Text style={styles.nome}>{item.nome}</Text>
+            <Text style={styles.grupo}>{item.grupo_muscular}</Text>
+          </TouchableOpacity>
+        )}
+        ListEmptyComponent={
+          <Text style={{ color: '#aaa', textAlign: 'center', marginTop: 20 }}>
+            Nenhum exercício encontrado.
+          </Text>
+        }
+      />
 
       <TouchableOpacity onPress={() => navigation.goBack()}>
-        <Text style={styles.voltar}>← Voltar</Text>
+        <Text style={styles.voltar}>← Cancelar</Text>
       </TouchableOpacity>
-
-      <Text style={styles.label}>Selecionar grupo muscular:</Text>
-      <View style={styles.grupoBox}>
-        {gruposDisponiveis.map((g) => (
-          <TouchableOpacity
-            key={g}
-            style={[styles.grupoBtn, grupo === g && styles.grupoAtivo]}
-            onPress={() => setGrupo(g)}
-          >
-            <Text style={styles.grupoTexto}>{g}</Text>
-          </TouchableOpacity>
-        ))}
-      </View>
-
-      <Text style={styles.label}>Exercícios de {grupo}:</Text>
-      {exerciciosFiltrados.length === 0 && (
-        <Text style={{ color: '#888' }}>Nenhum exercício disponível.</Text>
-      )}
-      {exerciciosFiltrados.map((ex, i) => (
-        <TouchableOpacity
-          key={i}
-          style={styles.exercicioBox}
-          onPress={() => handleAdicionar(ex)}
-        >
-          <Text style={styles.exNome}>{ex.nome}</Text>
-          <Text style={styles.exDesc}>{ex.descricao}</Text>
-        </TouchableOpacity>
-      ))}
-    </ScrollView>
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
-    padding: 20,
-    backgroundColor: '#121212'
-  },
-  title: {
-    fontSize: 22,
-    color: '#fff',
-    marginBottom: 16
-  },
-  label: {
-    color: '#ccc',
-    fontSize: 16,
-    marginTop: 10
-  },
-  grupoBox: {
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-    gap: 8,
-    marginVertical: 10
-  },
-  grupoBtn: {
-    backgroundColor: '#1f1f1f',
-    borderColor: '#333',
-    borderWidth: 1,
+  container: { backgroundColor: '#121212', flex: 1, padding: 20 },
+  titulo: { fontSize: 20, color: '#fff', marginBottom: 10, textAlign: 'center' },
+  input: {
+    backgroundColor: '#1e1e1e',
+    padding: 10,
     borderRadius: 8,
-    padding: 8,
-    margin: 4
-  },
-  grupoAtivo: {
-    backgroundColor: '#4caf50'
-  },
-  grupoTexto: {
     color: '#fff',
-    fontSize: 14
+    marginBottom: 10
   },
-  exercicioBox: {
+  grupos: { marginBottom: 12 },
+  grupoBotao: {
+    backgroundColor: '#2c2c2c',
+    paddingVertical: 6,
+    paddingHorizontal: 12,
+    borderRadius: 20,
+    marginRight: 8
+  },
+  grupoSelecionado: { backgroundColor: '#4caf50' },
+  grupoTexto: { color: '#fff', fontSize: 14 },
+  item: {
     backgroundColor: '#1e1e1e',
     padding: 12,
     borderRadius: 8,
-    marginBottom: 12
+    marginBottom: 8
   },
-  exNome: {
-    color: '#fff',
-    fontSize: 16,
-    fontWeight: 'bold'
-  },
-  exDesc: {
-    color: '#aaa',
-    fontSize: 14,
-    marginTop: 4
-  },
+  nome: { color: '#fff', fontSize: 16 },
+  grupo: { color: '#aaa', fontSize: 13 },
   voltar: {
-  color: '#bbb',
-  fontSize: 16,
-  textDecorationLine: 'underline',
-  marginBottom: 16
+    color: '#bbb',
+    textAlign: 'center',
+    marginTop: 20,
+    textDecorationLine: 'underline'
   }
 });

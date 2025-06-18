@@ -22,8 +22,14 @@ export default function ProgressScreen() {
   }, []);
 
   const carregarTreinos = async () => {
-    const data = await AsyncStorage.getItem('@treinos_salvos');
-    if (data) setTreinos(JSON.parse(data));
+    const user = await AsyncStorage.getItem('@aluno_logado');
+    const aluno = user ? JSON.parse(user) : null;
+    if (!aluno) return;
+
+    const dados = await AsyncStorage.getItem(`@historico_treinos_${aluno.email}`);
+    if (dados) {
+      setTreinos(JSON.parse(dados));
+    }
   };
 
   const abrirTreino = async (treino, index) => {
@@ -58,8 +64,8 @@ export default function ProgressScreen() {
               style={styles.card}
               onPress={() => abrirTreino(t, i)}
             >
-              <Text style={styles.nome}>{t.nome}</Text>
-              <Text style={styles.data}>Criado em: {new Date(t.criadoEm).toLocaleDateString('pt-BR')}</Text>
+              <Text style={styles.nome}>Treino #{i + 1}</Text>
+              <Text style={styles.data}>Criado em: {t.data}</Text>
             </TouchableOpacity>
           ))}
         </ScrollView>
@@ -72,7 +78,7 @@ export default function ProgressScreen() {
 
   return (
     <ScrollView contentContainerStyle={styles.container}>
-      <Text style={styles.title}>{treinoSelecionado.treino.nome}</Text>
+      <Text style={styles.title}>Treino Selecionado</Text>
 
       {treinoSelecionado.treino.plano.map((dia, diaIndex) => (
         <View key={diaIndex} style={styles.diaCard}>
@@ -80,10 +86,13 @@ export default function ProgressScreen() {
           {dia.exercicios.map((ex, i) => (
             <View key={i} style={styles.exBox}>
               <Text style={styles.exNome}>{ex.nome}</Text>
+              <Text style={styles.detalhes}>
+                Séries: {ex.series} | Repetições: {ex.repeticoes} | Carga estimada: {ex.carga_percentual}% | Descanso: {ex.descanso_segundos}s
+              </Text>
               <View style={styles.inputs}>
                 <TextInput
                   style={styles.input}
-                  placeholder="Carga (kg)"
+                  placeholder="Carga real (kg)"
                   placeholderTextColor="#999"
                   keyboardType="numeric"
                   value={progresso?.[dia.dia]?.[ex.nome]?.carga || ''}
@@ -91,7 +100,7 @@ export default function ProgressScreen() {
                 />
                 <TextInput
                   style={styles.input}
-                  placeholder="Reps"
+                  placeholder="Reps feitas"
                   placeholderTextColor="#999"
                   keyboardType="numeric"
                   value={progresso?.[dia.dia]?.[ex.nome]?.reps || ''}
@@ -158,7 +167,13 @@ const styles = StyleSheet.create({
   exNome: {
     color: '#fff',
     fontSize: 15,
-    marginBottom: 6
+    marginBottom: 4
+  },
+  detalhes: {
+    color: '#aaa',
+    fontSize: 13,
+    marginBottom: 6,
+    marginLeft: 6
   },
   inputs: {
     flexDirection: 'row',
@@ -169,7 +184,7 @@ const styles = StyleSheet.create({
     color: '#fff',
     padding: 8,
     borderRadius: 8,
-    width: 120
+    width: 130
   },
   saveButton: {
     marginTop: 20,
