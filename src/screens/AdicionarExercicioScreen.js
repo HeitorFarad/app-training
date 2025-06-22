@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   View,
   Text,
@@ -6,7 +6,7 @@ import {
   FlatList,
   TouchableOpacity,
   StyleSheet,
-  Alert
+  Modal
 } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useNavigation, useRoute } from '@react-navigation/native';
@@ -21,6 +21,8 @@ export default function AdicionarExercicioScreen() {
   const [filtroGrupo, setFiltroGrupo] = useState(grupoSelecionado || '');
   const [busca, setBusca] = useState('');
   const [exibidos, setExibidos] = useState([]);
+
+  const [modal, setModal] = useState({ visible: false, titulo: '', mensagem: '' });
 
   useEffect(() => {
     filtrar();
@@ -54,13 +56,12 @@ export default function AdicionarExercicioScreen() {
     if (!email) return;
 
     if (treinoId) {
-      // edição de treino salvo
       const dados = await AsyncStorage.getItem(`@historico_treinos_${email}`);
       const lista = dados ? JSON.parse(dados) : [];
 
       const index = lista.findIndex((t) => t.id === treinoId);
       if (index === -1) {
-        Alert.alert('Erro', 'Treino não encontrado.');
+        setModal({ visible: true, titulo: 'Erro', mensagem: 'Treino não encontrado.' });
         return;
       }
 
@@ -69,7 +70,7 @@ export default function AdicionarExercicioScreen() {
 
       const existe = dia.exercicios.some((e) => e.nome === exercicio.nome);
       if (existe) {
-        Alert.alert('Já adicionado', 'Este exercício já está no treino.');
+        setModal({ visible: true, titulo: 'Já adicionado', mensagem: 'Este exercício já está no treino.' });
         return;
       }
 
@@ -79,14 +80,13 @@ export default function AdicionarExercicioScreen() {
 
       await AsyncStorage.setItem(`@historico_treinos_${email}`, JSON.stringify(lista));
     } else {
-      // plano novo
       const planoSalvo = await AsyncStorage.getItem(`@plano_${email}`);
       const plano = planoSalvo ? JSON.parse(planoSalvo) : [];
       const dia = plano[diaIndex];
 
       const existe = dia.exercicios.some((e) => e.nome === exercicio.nome);
       if (existe) {
-        Alert.alert('Já adicionado', 'Este exercício já está no treino.');
+        setModal({ visible: true, titulo: 'Já adicionado', mensagem: 'Este exercício já está no treino.' });
         return;
       }
 
@@ -96,8 +96,7 @@ export default function AdicionarExercicioScreen() {
       await AsyncStorage.setItem(`@plano_${email}`, JSON.stringify(plano));
     }
 
-    Alert.alert('Exercício adicionado com sucesso!');
-    navigation.goBack();
+    setModal({ visible: true, titulo: 'Sucesso', mensagem: 'Exercício adicionado com sucesso.' });
   };
 
   const gruposUnicos = [...new Set(exercises.map((e) => e.grupo_muscular))];
@@ -157,6 +156,28 @@ export default function AdicionarExercicioScreen() {
       <TouchableOpacity onPress={() => navigation.goBack()}>
         <Text style={styles.voltar}>← Cancelar</Text>
       </TouchableOpacity>
+
+      <Modal
+        transparent
+        visible={modal.visible}
+        animationType="fade"
+        onRequestClose={() => setModal({ ...modal, visible: false })}
+      >
+        <View style={styles.modalOverlay}>
+          <View style={styles.modalBox}>
+            <Text style={styles.modalTitulo}>{modal.titulo}</Text>
+            <Text style={styles.modalMensagem}>{modal.mensagem}</Text>
+            <TouchableOpacity
+              onPress={() => {
+                setModal({ ...modal, visible: false });
+                if (modal.titulo === 'Sucesso') navigation.goBack();
+              }}
+            >
+              <Text style={styles.fechar}>OK</Text>
+            </TouchableOpacity>
+          </View>
+        </View>
+      </Modal>
     </View>
   );
 }
@@ -194,5 +215,16 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     marginTop: 20,
     textDecorationLine: 'underline'
-  }
+  },
+  modalOverlay: {
+    flex: 1, backgroundColor: 'rgba(0,0,0,0.6)',
+    justifyContent: 'center', alignItems: 'center'
+  },
+  modalBox: {
+    backgroundColor: '#fff', padding: 20, borderRadius: 10,
+    width: '80%', alignItems: 'center'
+  },
+  modalTitulo: { fontSize: 18, fontWeight: 'bold', marginBottom: 10 },
+  modalMensagem: { fontSize: 16, textAlign: 'center', marginBottom: 20 },
+  fechar: { fontSize: 16, color: '#4caf50', fontWeight: 'bold' }
 });

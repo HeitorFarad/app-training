@@ -1,3 +1,4 @@
+// ...imports
 import React, { useEffect, useState } from 'react';
 import {
   View,
@@ -5,7 +6,6 @@ import {
   ScrollView,
   StyleSheet,
   TouchableOpacity,
-  Alert,
   Modal
 } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -14,7 +14,9 @@ import { useNavigation } from '@react-navigation/native';
 export default function TreinosSalvosScreen() {
   const [treinos, setTreinos] = useState([]);
   const [modalVisible, setModalVisible] = useState(false);
+  const [modalConfirmacao, setModalConfirmacao] = useState(false);
   const [treinoSelecionado, setTreinoSelecionado] = useState(null);
+  const [treinoParaExcluir, setTreinoParaExcluir] = useState(null);
   const navigation = useNavigation();
 
   useEffect(() => {
@@ -30,12 +32,7 @@ export default function TreinosSalvosScreen() {
     if (!aluno) return;
 
     const dados = await AsyncStorage.getItem(`@historico_treinos_${aluno.email}`);
-    if (dados) {
-      const lista = JSON.parse(dados);
-      setTreinos(lista);
-    } else {
-      setTreinos([]);
-    }
+    setTreinos(dados ? JSON.parse(dados) : []);
   };
 
   const removerTreino = async (id) => {
@@ -46,6 +43,7 @@ export default function TreinosSalvosScreen() {
     const atualizados = treinos.filter((t) => t.id !== id);
     setTreinos(atualizados);
     await AsyncStorage.setItem(`@historico_treinos_${aluno.email}`, JSON.stringify(atualizados));
+    setModalConfirmacao(false);
   };
 
   const abrirTreino = (treino) => {
@@ -56,6 +54,11 @@ export default function TreinosSalvosScreen() {
   const fecharModal = () => {
     setTreinoSelecionado(null);
     setModalVisible(false);
+  };
+
+  const confirmarRemocao = (treino) => {
+    setTreinoParaExcluir(treino);
+    setModalConfirmacao(true);
   };
 
   return (
@@ -75,13 +78,7 @@ export default function TreinosSalvosScreen() {
               <TouchableOpacity onPress={() => abrirTreino(t)}>
                 <Text style={styles.ver}>👁️ Ver</Text>
               </TouchableOpacity>
-
-              <TouchableOpacity onPress={() =>
-                Alert.alert('Confirmar', 'Remover este treino?', [
-                  { text: 'Cancelar' },
-                  { text: 'Remover', onPress: () => removerTreino(t.id) }
-                ])
-              }>
+              <TouchableOpacity onPress={() => confirmarRemocao(t)}>
                 <Text style={styles.remover}>🗑️ Excluir</Text>
               </TouchableOpacity>
             </View>
@@ -89,6 +86,7 @@ export default function TreinosSalvosScreen() {
         ))}
       </ScrollView>
 
+      {/* Modal de visualização do treino */}
       <Modal visible={modalVisible} animationType="slide">
         <ScrollView contentContainerStyle={styles.modalContainer}>
           <Text style={styles.modalTitle}>Treino</Text>
@@ -112,18 +110,35 @@ export default function TreinosSalvosScreen() {
           </TouchableOpacity>
           <TouchableOpacity onPress={() => {
             fecharModal();
-            navigation.navigate('EditarTreino', {
-              treino: treinoSelecionado
-            });
+            navigation.navigate('EditarTreino', { treino: treinoSelecionado });
           }}>
             <Text style={styles.editar}>✏️ Editar Treino</Text>
           </TouchableOpacity>
         </ScrollView>
       </Modal>
+
+      {/* Modal de confirmação de exclusão */}
+      <Modal transparent visible={modalConfirmacao} animationType="fade">
+        <View style={styles.modalOverlay}>
+          <View style={styles.modalBox}>
+            <Text style={styles.modalTitulo}>Confirmar Exclusão</Text>
+            <Text style={styles.modalMensagem}>Deseja remover este treino?</Text>
+            <View style={{ flexDirection: 'row', gap: 30, marginTop: 20 }}>
+              <TouchableOpacity onPress={() => setModalConfirmacao(false)}>
+                <Text style={styles.fechar}>Cancelar</Text>
+              </TouchableOpacity>
+              <TouchableOpacity onPress={() => removerTreino(treinoParaExcluir.id)}>
+                <Text style={styles.remover}>Remover</Text>
+              </TouchableOpacity>
+            </View>
+          </View>
+        </View>
+      </Modal>
     </View>
   );
 }
 
+// estilos mantidos
 const styles = StyleSheet.create({
   container: {
     backgroundColor: '#121212',
@@ -175,5 +190,17 @@ const styles = StyleSheet.create({
   },
   exercicioBox: {
     marginBottom: 8
-  }
+  },
+  modalOverlay: {
+    flex: 1, backgroundColor: 'rgba(0,0,0,0.6)', justifyContent: 'center', alignItems: 'center'
+  },
+  modalBox: {
+    backgroundColor: '#fff',
+    padding: 20,
+    borderRadius: 10,
+    width: '80%',
+    alignItems: 'center'
+  },
+  modalTitulo: { fontSize: 18, fontWeight: 'bold' },
+  modalMensagem: { fontSize: 16, marginTop: 10, textAlign: 'center' }
 });

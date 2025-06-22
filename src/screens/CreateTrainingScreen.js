@@ -5,7 +5,7 @@ import {
   ScrollView,
   StyleSheet,
   TouchableOpacity,
-  Alert
+  Modal
 } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useNavigation } from '@react-navigation/native';
@@ -14,6 +14,7 @@ export default function CreateTrainingScreen() {
   const navigation = useNavigation();
   const [plano, setPlano] = useState([]);
   const [alunoEmail, setAlunoEmail] = useState('');
+  const [modal, setModal] = useState({ visible: false, titulo: '', mensagem: '' });
 
   useEffect(() => {
     carregarPlano();
@@ -43,7 +44,7 @@ export default function CreateTrainingScreen() {
 
   const handleSalvarTreino = async () => {
     if (plano.length === 0) {
-      Alert.alert('Erro', 'Nenhum plano de treino encontrado para salvar.');
+      setModal({ visible: true, titulo: 'Erro', mensagem: 'Nenhum plano de treino encontrado para salvar.' });
       return;
     }
 
@@ -65,7 +66,7 @@ export default function CreateTrainingScreen() {
       JSON.stringify([...historico, novo])
     );
 
-    Alert.alert('Sucesso', 'Treino salvo no seu histórico!');
+    setModal({ visible: true, titulo: 'Sucesso', mensagem: 'Treino salvo no seu histórico!' });
   };
 
   const handleAdicionar = (grupo, diaIndex) => {
@@ -130,6 +131,25 @@ export default function CreateTrainingScreen() {
       <TouchableOpacity onPress={() => navigation.navigate('MainMenu')}>
         <Text style={styles.voltar}>← Voltar ao Menu</Text>
       </TouchableOpacity>
+
+      <Modal
+        transparent
+        visible={modal.visible}
+        animationType="fade"
+        onRequestClose={() => setModal({ ...modal, visible: false })}
+      >
+        <View style={styles.modalOverlay}>
+          <View style={styles.modalBox}>
+            <Text style={styles.modalTitulo}>{modal.titulo}</Text>
+            <Text style={styles.modalMensagem}>{modal.mensagem}</Text>
+            <TouchableOpacity
+              onPress={() => setModal({ ...modal, visible: false })}
+            >
+              <Text style={styles.fechar}>OK</Text>
+            </TouchableOpacity>
+          </View>
+        </View>
+      </Modal>
     </ScrollView>
   );
 }
@@ -216,5 +236,21 @@ const styles = StyleSheet.create({
   },
   exercicioBox: {
     marginBottom: 8
-  }
+  },
+  modalOverlay: {
+    flex: 1,
+    backgroundColor: 'rgba(0,0,0,0.6)',
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
+  modalBox: {
+    backgroundColor: '#fff',
+    padding: 20,
+    borderRadius: 10,
+    width: '80%',
+    alignItems: 'center'
+  },
+  modalTitulo: { fontSize: 18, fontWeight: 'bold', marginBottom: 10 },
+  modalMensagem: { fontSize: 16, textAlign: 'center', marginBottom: 20 },
+  fechar: { fontSize: 16, color: '#4caf50', fontWeight: 'bold' }
 });

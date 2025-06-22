@@ -5,7 +5,7 @@ import {
   TouchableOpacity,
   ScrollView,
   StyleSheet,
-  Alert
+  Modal
 } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useRoute, useNavigation } from '@react-navigation/native';
@@ -17,20 +17,28 @@ export default function EditarTreinoScreen() {
 
   const [plano, setPlano] = useState(treino?.plano || []);
   const [treinoId] = useState(treino?.id || null);
+  const [modalVisible, setModalVisible] = useState(false);
+  const [exercicioParaRemover, setExercicioParaRemover] = useState(null);
 
   useEffect(() => {
     if (!treino || !treino.plano || !treino.id) {
-      Alert.alert('Erro', 'Treino inválido.');
       navigation.goBack();
     }
   }, []);
 
-  const removerExercicio = async (diaIndex, nome) => {
+  const confirmarRemocao = (diaIndex, nome) => {
+    setExercicioParaRemover({ diaIndex, nome });
+    setModalVisible(true);
+  };
+
+  const removerExercicio = async () => {
+    const { diaIndex, nome } = exercicioParaRemover;
     const novoPlano = [...plano];
     const dia = novoPlano[diaIndex];
     dia.exercicios = dia.exercicios.filter((e) => e.nome !== nome);
     novoPlano[diaIndex] = dia;
     setPlano(novoPlano);
+    setModalVisible(false);
 
     const aluno = await AsyncStorage.getItem('@aluno_logado');
     const email = JSON.parse(aluno)?.email;
@@ -48,7 +56,7 @@ export default function EditarTreinoScreen() {
     navigation.navigate('AdicionarExercicio', {
       diaIndex,
       grupoSelecionado: grupo,
-      localTreino: 'academia', // trocar pelo valor real se desejar
+      localTreino: 'academia', // ou use o valor real da anamnese
       treinoId
     });
   };
@@ -82,15 +90,7 @@ export default function EditarTreinoScreen() {
                 {exercicios.map((ex, j) => (
                   <TouchableOpacity
                     key={j}
-                    onPress={() =>
-                      Alert.alert('Remover', `Remover ${ex.nome}?`, [
-                        { text: 'Cancelar' },
-                        {
-                          text: 'Remover',
-                          onPress: () => removerExercicio(i, ex.nome)
-                        }
-                      ])
-                    }
+                    onPress={() => confirmarRemocao(i, ex.nome)}
                   >
                     <View style={styles.exBox}>
                       <Text style={styles.item}>• {ex.nome}</Text>
@@ -109,6 +109,25 @@ export default function EditarTreinoScreen() {
       <TouchableOpacity onPress={() => navigation.goBack()}>
         <Text style={styles.voltar}>← Voltar</Text>
       </TouchableOpacity>
+
+      {/* Modal de confirmação */}
+      <Modal visible={modalVisible} transparent animationType="fade">
+        <View style={styles.modalContainer}>
+          <View style={styles.modalBox}>
+            <Text style={styles.modalText}>
+              Deseja remover o exercício "{exercicioParaRemover?.nome}"?
+            </Text>
+            <View style={styles.modalButtons}>
+              <TouchableOpacity onPress={() => setModalVisible(false)}>
+                <Text style={styles.cancelar}>Cancelar</Text>
+              </TouchableOpacity>
+              <TouchableOpacity onPress={removerExercicio}>
+                <Text style={styles.confirmar}>Remover</Text>
+              </TouchableOpacity>
+            </View>
+          </View>
+        </View>
+      </Modal>
     </ScrollView>
   );
 }
@@ -154,5 +173,34 @@ const styles = StyleSheet.create({
   },
   exBox: {
     marginBottom: 8
+  },
+  modalContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: 'rgba(0,0,0,0.6)'
+  },
+  modalBox: {
+    backgroundColor: '#fff',
+    padding: 20,
+    borderRadius: 10,
+    width: '80%'
+  },
+  modalText: {
+    fontSize: 16,
+    marginBottom: 20,
+    textAlign: 'center'
+  },
+  modalButtons: {
+    flexDirection: 'row',
+    justifyContent: 'space-between'
+  },
+  cancelar: {
+    color: 'gray',
+    fontSize: 16
+  },
+  confirmar: {
+    color: 'red',
+    fontSize: 16
   }
 });

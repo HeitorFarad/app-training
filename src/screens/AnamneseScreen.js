@@ -5,8 +5,8 @@ import {
   TextInput,
   StyleSheet,
   TouchableOpacity,
-  Alert,
-  ScrollView
+  ScrollView,
+  Modal
 } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useNavigation, useRoute } from '@react-navigation/native';
@@ -22,6 +22,9 @@ const opcoes = {
 
 export default function AnamneseScreen() {
   const navigation = useNavigation();
+  const route = useRoute();
+  const gerarPlanoAoFinalizar = route.params?.gerarPlano || false;
+
   const [respostas, setRespostas] = useState({
     objetivo: '',
     local: '',
@@ -34,8 +37,7 @@ export default function AnamneseScreen() {
     frequencia: ''
   });
 
-  const route = useRoute();
-  const gerarPlanoAoFinalizar = route.params?.gerarPlano || false;
+  const [modal, setModal] = useState({ visible: false, titulo: '', mensagem: '' });
 
   const handleChange = (campo, valor) => {
     setRespostas((prev) => ({ ...prev, [campo]: valor }));
@@ -52,43 +54,36 @@ export default function AnamneseScreen() {
     const estaVinculado = listaVinculos.some((v) => v.aluno === aluno.email);
 
     if (gerarPlanoAoFinalizar) {
-      // Sempre gera o plano se veio do botão "Criar Treino"
       const { gerarPlano } = require('../utils/geradorTreino');
       const plano = gerarPlano(respostas);
       await AsyncStorage.setItem(`@plano_${aluno.email}`, JSON.stringify(plano));
-      Alert.alert('Sucesso', 'Plano criado com base na sua nova anamnese.');
-      navigation.navigate('CreateTraining');
+      setModal({ visible: true, titulo: 'Sucesso', mensagem: 'Plano criado com base na sua nova anamnese.' });
       return;
     }
 
-    // Se veio de outra tela (exemplo: vinculação com personal)
     if (estaVinculado) {
-      Alert.alert('Anamnese salva!', 'Seu personal poderá criar seu plano.');
+      setModal({ visible: true, titulo: 'Anamnese salva!', mensagem: 'Seu personal poderá criar seu plano.' });
     } else {
-      Alert.alert('Anamnese salva!', 'Agora você pode criar seu plano de treino.');
+      setModal({ visible: true, titulo: 'Anamnese salva!', mensagem: 'Agora você pode criar seu plano de treino.' });
     }
-
-    navigation.navigate('MainMenu');
   };
 
-  const renderBotoes = (campo) => {
-    return (
-      <View style={styles.opcoesContainer}>
-        {opcoes[campo].map((op, i) => (
-          <TouchableOpacity
-            key={i}
-            style={[
-              styles.opcao,
-              respostas[campo] === op && styles.opcaoSelecionada
-            ]}
-            onPress={() => handleChange(campo, op)}
-          >
-            <Text style={styles.opcaoTexto}>{op}</Text>
-          </TouchableOpacity>
-        ))}
-      </View>
-    );
-  };
+  const renderBotoes = (campo) => (
+    <View style={styles.opcoesContainer}>
+      {opcoes[campo].map((op, i) => (
+        <TouchableOpacity
+          key={i}
+          style={[
+            styles.opcao,
+            respostas[campo] === op && styles.opcaoSelecionada
+          ]}
+          onPress={() => handleChange(campo, op)}
+        >
+          <Text style={styles.opcaoTexto}>{op}</Text>
+        </TouchableOpacity>
+      ))}
+    </View>
+  );
 
   return (
     <ScrollView contentContainerStyle={styles.container}>
@@ -148,6 +143,32 @@ export default function AnamneseScreen() {
       <TouchableOpacity onPress={() => navigation.goBack()}>
         <Text style={styles.voltar}>← Voltar</Text>
       </TouchableOpacity>
+
+      <Modal
+        visible={modal.visible}
+        transparent
+        animationType="fade"
+        onRequestClose={() => setModal({ ...modal, visible: false })}
+      >
+        <View style={styles.modalOverlay}>
+          <View style={styles.modalBox}>
+            <Text style={styles.modalTitulo}>{modal.titulo}</Text>
+            <Text style={styles.modalMensagem}>{modal.mensagem}</Text>
+            <TouchableOpacity
+              onPress={() => {
+                setModal({ visible: false, titulo: '', mensagem: '' });
+                if (gerarPlanoAoFinalizar) {
+                  navigation.navigate('CreateTraining');
+                } else {
+                  navigation.navigate('MainMenu');
+                }
+              }}
+            >
+              <Text style={styles.modalFechar}>OK</Text>
+            </TouchableOpacity>
+          </View>
+        </View>
+      </Modal>
     </ScrollView>
   );
 }
@@ -210,5 +231,25 @@ const styles = StyleSheet.create({
     color: '#bbb',
     textAlign: 'center',
     textDecorationLine: 'underline'
+  },
+  modalOverlay: {
+    flex: 1, justifyContent: 'center', alignItems: 'center',
+    backgroundColor: 'rgba(0,0,0,0.6)'
+  },
+  modalBox: {
+    backgroundColor: '#fff',
+    padding: 20,
+    borderRadius: 10,
+    width: '80%',
+    alignItems: 'center'
+  },
+  modalTitulo: {
+    fontSize: 18, fontWeight: 'bold', marginBottom: 10
+  },
+  modalMensagem: {
+    fontSize: 16, textAlign: 'center', marginBottom: 20
+  },
+  modalFechar: {
+    fontSize: 16, color: '#4caf50', fontWeight: 'bold'
   }
 });

@@ -6,7 +6,7 @@ import {
   StyleSheet,
   TouchableOpacity,
   TextInput,
-  Alert
+  Modal
 } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useNavigation } from '@react-navigation/native';
@@ -16,6 +16,7 @@ export default function ProgressScreen() {
   const [treinos, setTreinos] = useState([]);
   const [treinoSelecionado, setTreinoSelecionado] = useState(null);
   const [progresso, setProgresso] = useState({});
+  const [modalVisible, setModalVisible] = useState(false);
 
   useEffect(() => {
     carregarTreinos();
@@ -50,7 +51,7 @@ export default function ProgressScreen() {
   const salvarProgresso = async () => {
     const id = `@progresso_${treinoSelecionado.index}`;
     await AsyncStorage.setItem(id, JSON.stringify(progresso));
-    Alert.alert('Sucesso', 'Progresso salvo com sucesso!');
+    setModalVisible(true);
   };
 
   if (!treinoSelecionado) {
@@ -119,6 +120,18 @@ export default function ProgressScreen() {
       <TouchableOpacity onPress={() => setTreinoSelecionado(null)}>
         <Text style={styles.voltar}>← Voltar para Lista</Text>
       </TouchableOpacity>
+
+      <Modal transparent visible={modalVisible} animationType="fade">
+        <View style={styles.modalOverlay}>
+          <View style={styles.modalBox}>
+            <Text style={styles.modalTitulo}>Sucesso!</Text>
+            <Text style={styles.modalMensagem}>Progresso salvo com sucesso.</Text>
+            <TouchableOpacity onPress={() => setModalVisible(false)}>
+              <Text style={styles.modalFechar}>OK</Text>
+            </TouchableOpacity>
+          </View>
+        </View>
+      </Modal>
     </ScrollView>
   );
 }
@@ -202,5 +215,33 @@ const styles = StyleSheet.create({
     color: '#bbb',
     fontSize: 16,
     textDecorationLine: 'underline'
+  },
+  modalOverlay: {
+    flex: 1,
+    backgroundColor: 'rgba(0,0,0,0.6)',
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
+  modalBox: {
+    backgroundColor: '#fff',
+    padding: 20,
+    borderRadius: 10,
+    width: '80%',
+    alignItems: 'center'
+  },
+  modalTitulo: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    marginBottom: 10
+  },
+  modalMensagem: {
+    fontSize: 16,
+    textAlign: 'center',
+    marginBottom: 20
+  },
+  modalFechar: {
+    fontSize: 16,
+    color: '#4caf50',
+    fontWeight: 'bold'
   }
 });
